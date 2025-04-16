@@ -3,6 +3,7 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/side-bar";
+import { Toaster } from "@/components/ui/sonner";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
           <AppSidebar />
           <SidebarTrigger />
           {children}
+          <Toaster />
         </SidebarProvider>
       </body>
     </html>
