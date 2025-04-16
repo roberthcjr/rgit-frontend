@@ -11,7 +11,7 @@ const tools: Tools[] = [
     name: "Escada",
     status: "available",
     brand: "m@example.com",
-    insertedAt: new Date()
+    insertedAt: new Date().toLocaleDateString("pt-BR")
   },
   {
     id: "489e1d42",
@@ -24,12 +24,15 @@ const tools: Tools[] = [
 
 export default function Home() {
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={tools} />
-      <div className="container items-end">
-      <Button className="m-1 cursor-pointer" variant="outline">Importar por CSV</Button>
-      <Button className="m-1 cursor-pointer" variant="default"><CirclePlus/>Inserir</Button>
+    <>
+      <div className="container mx-auto py-10">
+        <DataTable columns={columns} data={tools} />
+        <div className="container items-end">
+          <Button className="m-1 cursor-pointer" variant="outline">Importar por CSV</Button>
+          <Button className="m-1 cursor-pointer" variant="default"><CirclePlus/>Inserir</Button>
+        </div>
       </div>
-    </div>
+    </>
+
   );
 }

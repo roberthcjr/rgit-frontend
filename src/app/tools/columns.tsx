@@ -8,7 +8,7 @@ export type Tools = {
     status: "available" | "unavailable" | "lended"
     brand: string
     category?: string
-    insertedAt?: Date
+    insertedAt?: string
   }
 
 export const columns: ColumnDef<Tools>[] = [
