@@ -19,8 +19,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Menu items.
 const groupsSideBar = [
@@ -35,11 +35,6 @@ const groupsSideBar = [
 ];
 
 export function AppSidebar() {
-  const [selectedItem, setSelectedItem] = useState("");
-  const updateSelectedItem = (item: any) => {
-    console.log(item);
-    setSelectedItem(item);
-  };
   return (
     <Sidebar>
       <SidebarHeader className="font-bold">RGIT</SidebarHeader>
@@ -53,10 +48,7 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      onClick={() => {
-                        updateSelectedItem(item.title);
-                      }}
-                      isActive={selectedItem === item.title}
+                      isActive={usePathname() === item.url}
                     >
                       <Link
                         key={item.title}
