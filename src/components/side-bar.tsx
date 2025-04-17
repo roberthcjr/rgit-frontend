@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useState } from "react";
+import Link from "next/link";
 
 // Menu items.
 const groupsSideBar = [
@@ -38,7 +39,7 @@ export function AppSidebar() {
   const updateSelectedItem = (item: any) => {
     console.log(item);
     setSelectedItem(item);
-  }
+  };
   return (
     <Sidebar>
       <SidebarHeader className="font-bold">RGIT</SidebarHeader>
@@ -52,13 +53,18 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      onClick={() => {updateSelectedItem(item.title)}}
-                      isActive={selectedItem===item.title}
+                      onClick={() => {
+                        updateSelectedItem(item.title);
+                      }}
+                      isActive={selectedItem === item.title}
                     >
-                      <a href={item.url}>
+                      <Link
+                        key={item.title}
+                        href={item.url}
+                      >
                         <item.icon />
-                        <span>{item.title}</span>
-                      </a>
+                        <p className="hidden md:block">{item.title}</p>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
