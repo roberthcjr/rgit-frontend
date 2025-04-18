@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ToolsService from "./service";
 
 const MB_RATIO = 1024 * 1024;
 const MAX_FILE_SIZE = 5 * MB_RATIO;
@@ -50,11 +51,11 @@ export default function Home() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      throw new Error("Isso é um erro");
-      // Send to api csv process
-      console.log(values);
+      const toolsService = new ToolsService();
+      const response = await toolsService.postCSV(values.csv);
+      console.log(response);
       toast("Importação realizada com sucesso!", {
         icon: <PackageCheck />,
       });
