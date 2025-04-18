@@ -1,10 +1,12 @@
 import ApiClient from "@/api/ApiClient";
+import { Tools } from "./columns";
 
 export default class ToolsService extends ApiClient {
     endpoint: string = 'tools';
 
-    getAll() : Promise<Response> {
-        return super.get(this.endpoint);
+    async getAll() : Promise<Tools[]> {
+        const response: Response = await super.get(this.endpoint);
+        return response.json();
     }
 
     get(id: string) : Promise<Response> {
@@ -15,9 +17,16 @@ export default class ToolsService extends ApiClient {
         return super.post(this.endpoint, body);
     }
 
-    postCSV(body: File) : Promise<Response> {
-        return super.post(`${this.endpoint}/importCSV`, body);
-    }
+    postCSV(file: File): Promise<Response> {
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        return fetch(`${this.api}/${this.endpoint}/importCSV`, {
+          method: "POST",
+          body: formData,
+        });
+      }
+      
 
     put(id: string, body: any) : Promise<Response> {
         return super.put(`${this.endpoint}/${id}`, body);
