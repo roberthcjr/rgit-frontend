@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const MB_RATIO = 1024 * 1024;
 const MAX_FILE_SIZE = 5 * MB_RATIO;
