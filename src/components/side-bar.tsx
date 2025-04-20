@@ -12,7 +12,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ArrowRightLeft, ChevronUp, User2, Wrench } from "lucide-react";
+import {
+  ArrowRightLeft,
+  ChevronUp,
+  LucideProps,
+  User2,
+  Wrench,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,9 +27,23 @@ import {
 } from "./ui/dropdown-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
+
+type ItemSideBar = {
+  title: string;
+  url: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+};
+
+type GroupSideBar = {
+  title: string;
+  items: ItemSideBar[];
+};
 
 // Menu items.
-const groupsSideBar = [
+const groupsSideBar: GroupSideBar[] = [
   {
     title: "Ferramentas",
     items: [{ title: "Empréstimos", url: "#", icon: ArrowRightLeft }],
@@ -35,25 +55,23 @@ const groupsSideBar = [
 ];
 
 export function AppSidebar() {
+  const actualPath = usePathname();
   return (
     <Sidebar>
       <SidebarHeader className="font-bold">RGIT</SidebarHeader>
       <SidebarContent>
-        {groupsSideBar.map((group) => (
+        {groupsSideBar.map((group: GroupSideBar) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map((item) => (
+                {group.items.map((item: ItemSideBar) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      isActive={usePathname() === item.url}
+                      isActive={actualPath === item.url}
                     >
-                      <Link
-                        key={item.title}
-                        href={item.url}
-                      >
+                      <Link key={item.title} href={item.url}>
                         <item.icon />
                         <p className="hidden md:block">{item.title}</p>
                       </Link>
