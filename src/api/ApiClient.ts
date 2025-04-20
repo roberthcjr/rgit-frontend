@@ -1,5 +1,5 @@
 export default class ApiClient {
-    api: string = "http://localhost:8080";
+    api: string = process.env.API??"http://localhost:8080";
     headers: Headers = new Headers({
         "Content-Type": "application/json",
     });
