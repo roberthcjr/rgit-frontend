@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -27,39 +27,20 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-
-const MB_RATIO = 1024 * 1024;
-const MAX_FILE_SIZE = 5 * MB_RATIO;
-const ACCEPTED_MIME_TYPES = ["text/csv"];
+import { csvSchema } from "./validators/csvInputValidator";
 
 const queryClient = new QueryClient();
-
-const formSchema = z.object({
-  csv: z
-    .any()
-    .refine(
-      (file) => file?.size <= MAX_FILE_SIZE,
-      `O arquivo deve ter até ${MAX_FILE_SIZE / MB_RATIO}MB.`
-    )
-    .refine(
-      (file) => ACCEPTED_MIME_TYPES.includes(file?.type),
-      `Apenas arquivos no formato ${ACCEPTED_MIME_TYPES.join(
-        ","
-      )} são suportados.`
-    ),
-});
 
 export default function Page() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Home />
+      <Tools />
     </QueryClientProvider>
   );
 }
 
-function Home() {
+function Tools() {
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
   const toolsService = useMemo(() => new ToolsService(), []);
 
   const query = useQuery<Tools[]>({ queryKey: ["tools"], queryFn: () => toolsService.getAll() });
@@ -80,15 +61,14 @@ function Home() {
     },
   });
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof csvSchema>>({
+    resolver: zodResolver(csvSchema),
     defaultValues: {
       csv: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values.csv)
+  const onSubmit = (values: z.infer<typeof csvSchema>) => {
     mutation.mutate(values.csv);
   }
   return (
