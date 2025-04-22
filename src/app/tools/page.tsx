@@ -1,7 +1,7 @@
 "use client";
 
 import { columns, Tools } from "./columns";
-import { DataTable } from "@/components/data-table";
+import { DataTable } from "@/components/data-table/data-table";
 import { Button } from "@/components/ui/button";
 import { CirclePlus, PackageCheck, PackageX } from "lucide-react";
 import { CustomDialog } from "@/components/custom-dialog";
