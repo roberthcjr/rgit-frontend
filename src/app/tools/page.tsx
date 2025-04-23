@@ -73,7 +73,7 @@ function Tools() {
   }
   return (
       <div className="container">
-          <div className="container mx-auto pt-10 pr-5">
+          <div className="container mx-auto pr-5">
             <DataTable columns={columns} data={query.data ?? []} />
           </div>
 

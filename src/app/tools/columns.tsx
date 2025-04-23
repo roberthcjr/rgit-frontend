@@ -1,95 +1,76 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown } from "lucide-react"
+import { ActionsRow } from "@/components/data-table/actions-row";
+import { DataTableColumnHeader } from "@/components/data-table/header-table";
+import { SimpleTooltip } from "@/components/simple-tooltip";
+import { ColumnDef } from "@tanstack/react-table";
+import { CircleCheckBig, CircleFadingArrowUp, CircleMinus } from "lucide-react";
+import { ReactNode } from "react";
 
-export type Tools = {
-    id: string
-    name: string
-    status: Status
-    brand: string
-    category?: string
-    insertedAt?: string
-  }
-
-export enum Status {
-    available = "Disponível", 
-    unavailable =  "Indisponível",
-    lended =  "Emprestada"
+enum Status {
+  AVAILABLE = "Disponível",
+  UNAVAILABLE = "Indisponível",
+  LENDED = "Emprestada",
 }
 
+export type Tools = {
+  id: string;
+  name: string;
+  status: Status;
+  brand: string;
+  category?: string;
+  insertedAt?: string;
+};
 
+const statusMap: Record<string, Status> = {
+  AVAILABLE: Status.AVAILABLE,
+  UNAVAILABLE: Status.UNAVAILABLE,
+  LENDED: Status.LENDED,
+};
+
+const statusIconMap: Record<string, ReactNode> = {
+  AVAILABLE: <SimpleTooltip message={statusMap["AVAILABLE"]}><CircleCheckBig/></SimpleTooltip>,
+  UNAVAILABLE: <SimpleTooltip message={statusMap["UNAVAILABLE"]}><CircleMinus/></SimpleTooltip>,
+  LENDED: <SimpleTooltip message={statusMap["LENDED"]}><CircleFadingArrowUp/></SimpleTooltip>,
+};
 
 export const columns: ColumnDef<Tools>[] = [
-    {
-        accessorKey: "name",
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Nome
-                <ArrowUpDown />
-              </Button>
-            )
-          },
+  {
+    accessorKey: "name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Nome" />
+    ),
+  },
+  {
+    accessorKey: "category",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Categoria" />
+    ),
+  },
+  {
+    accessorKey: "brand",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Marca" />
+    ),
+  },
+  {
+    accessorKey: "insertedAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Data de Compra" />
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const statusRaw: string = row.getValue("status");
+      return statusIconMap[statusRaw];
     },
-    {
-        accessorKey: "category",
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Categoria
-                <ArrowUpDown />
-              </Button>
-            )
-          },
-    },
-    {
-        accessorKey: "brand",
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Marca
-                <ArrowUpDown />
-              </Button>
-            )
-          },
-    },
-    {
-        accessorKey: "insertedAt",
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Data de Compra
-                <ArrowUpDown />
-              </Button>
-            )
-          },
-    },
-    {
-      accessorKey: "status",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Status
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-    },
-]
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <ActionsRow payment={row} />,
+  },
+];
