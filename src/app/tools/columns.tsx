@@ -6,27 +6,7 @@ import { SimpleTooltip } from "@/components/simple-tooltip";
 import { ColumnDef } from "@tanstack/react-table";
 import { CircleCheckBig, CircleFadingArrowUp, CircleMinus } from "lucide-react";
 import { ReactNode } from "react";
-
-enum Status {
-  AVAILABLE = "Disponível",
-  UNAVAILABLE = "Indisponível",
-  LENDED = "Emprestada",
-}
-
-export type Tools = {
-  id: string;
-  name: string;
-  status: Status;
-  brand: string;
-  category?: string;
-  insertedAt?: string;
-};
-
-const statusMap: Record<string, Status> = {
-  AVAILABLE: Status.AVAILABLE,
-  UNAVAILABLE: Status.UNAVAILABLE,
-  LENDED: Status.LENDED,
-};
+import { statusMap, Tool } from "./model";
 
 const statusIconMap: Record<string, ReactNode> = {
   AVAILABLE: <SimpleTooltip message={statusMap["AVAILABLE"]}><CircleCheckBig/></SimpleTooltip>,
@@ -34,7 +14,7 @@ const statusIconMap: Record<string, ReactNode> = {
   LENDED: <SimpleTooltip message={statusMap["LENDED"]}><CircleFadingArrowUp/></SimpleTooltip>,
 };
 
-export const columns: ColumnDef<Tools>[] = [
+export const columns: ColumnDef<Tool>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (

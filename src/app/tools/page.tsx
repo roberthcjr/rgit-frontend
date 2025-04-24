@@ -1,6 +1,7 @@
 "use client";
 
-import { columns, Tools } from "./columns";
+import { columns } from "./columns";
+import { Tool } from "./model";
 import { DataTable } from "@/components/data-table/data-table";
 import { Button } from "@/components/ui/button";
 import { CirclePlus, PackageCheck, PackageX } from "lucide-react";
@@ -43,7 +44,7 @@ function Tools() {
   const queryClient = useQueryClient();
   const toolsService = useMemo(() => new ToolsService(), []);
 
-  const query = useQuery<Tools[]>({ queryKey: ["tools"], queryFn: () => toolsService.getAll() });
+  const query = useQuery<Tool[]>({ queryKey: ["tools"], queryFn: () => toolsService.getAll() });
   const mutation = useMutation({
     mutationFn: (data:File) => toolsService.postCSV(data),
     onError: async (error) => {

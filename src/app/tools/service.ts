@@ -1,10 +1,10 @@
 import ApiClient from "@/api/ApiClient";
-import { Tools } from "./columns";
+import { Tool } from "./model";
 
 export default class ToolsService extends ApiClient {
     endpoint: string = 'tools';
 
-    async getAll() : Promise<Tools[]> {
+    async getAll() : Promise<Tool[]> {
         const response: Response = await super.get(this.endpoint);
         return response.json();
     }
