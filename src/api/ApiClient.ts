@@ -1,7 +1,7 @@
 export default class ApiClient {
   api: string = process.env.API ?? "http://localhost:8080";
   headers: Headers = new Headers({
-    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   });
 
   get(url: string): Promise<Response> {
@@ -12,10 +12,10 @@ export default class ApiClient {
     return fetch(getRequest);
   }
 
-  post(url: string, body: any, customHeader?: Headers): Promise<Response> {
+  post(url: string, body: any): Promise<Response> {
     const postRequest = new Request(`${this.api}/${url}`, {
       method: "POST",
-      headers: customHeader ?? this.headers,
+      headers: this.headers,
       body,
     });
     return fetch(postRequest);
