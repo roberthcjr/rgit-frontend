@@ -6,6 +6,8 @@ import { ImportCsvDialog } from "./components/import-csv-dialog";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useState } from "react";
+import { AppSidebar } from "@/components/side-bar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const queryClient = new QueryClient();
 
@@ -19,18 +21,27 @@ export default function Page() {
 
 function Tools() {
   const [open, setOpen] = useState(false);
-  const { query, form, onSubmit } = useTools({setOpen});
+  const { query, form, onSubmit } = useTools({ setOpen });
 
   return (
-    <div className="container">
-      <ToolsTable data={query.data ?? []} />
-      <div className="flex items-end">
-        <ImportCsvDialog open={open} setOpen={setOpen} form={form} onSubmit={onSubmit} />
-        <Button className="cursor-pointer m-2" variant="default">
-          <CirclePlus />
-          Inserir
-        </Button>
+    <>
+      <SidebarTrigger />
+      <AppSidebar />
+      <div className="container">
+        <ToolsTable data={query.data ?? []} />
+        <div className="flex items-end">
+          <ImportCsvDialog
+            open={open}
+            setOpen={setOpen}
+            form={form}
+            onSubmit={onSubmit}
+          />
+          <Button className="cursor-pointer m-2" variant="default">
+            <CirclePlus />
+            Inserir
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

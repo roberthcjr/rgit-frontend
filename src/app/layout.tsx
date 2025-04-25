@@ -31,8 +31,6 @@ export default function RootLayout({
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <AppSidebar />
-          <SidebarTrigger />
           {children}
           <Toaster />
         </SidebarProvider>

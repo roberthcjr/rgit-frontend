@@ -46,7 +46,7 @@ type GroupSideBar = {
 const groupsSideBar: GroupSideBar[] = [
   {
     title: "Ferramentas",
-    items: [{ title: "Empréstimos", url: "#", icon: ArrowRightLeft }],
+    items: [{ title: "Empréstimos", url: "/lends", icon: ArrowRightLeft }],
   },
   {
     title: "Gerenciamento",
