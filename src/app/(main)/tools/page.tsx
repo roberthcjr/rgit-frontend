@@ -25,8 +25,6 @@ function Tools() {
 
   return (
     <>
-      <SidebarTrigger />
-      <AppSidebar />
       <div className="container">
         <ToolsTable data={query.data ?? []} />
         <div className="flex items-end">

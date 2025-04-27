@@ -30,10 +30,8 @@ export default function RootLayout({
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
-        <SidebarProvider>
           {children}
           <Toaster />
-        </SidebarProvider>
       </body>
     </html>
   );

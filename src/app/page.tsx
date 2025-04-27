@@ -1,21 +1,16 @@
-// app/page.tsx
-'use client'
+"use client";
 
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-  const router = useRouter()
-
-  const handleLogin = () => {
-    // Aqui você faria a lógica real de login
-    // e depois redirecionaria:
-    router.push('/tools')
+export default function LendingPage() {
+  const router = useRouter();
+  const sendToLoginPage = () => {
+    router.push('/login')
   }
-
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Button onClick={handleLogin}>Login</Button>
+    <div className="flex w-screen h-screen justify-center items-center">
+      <Button className="cursor-pointer" onClick={sendToLoginPage}>Entrar</Button>
     </div>
-  )
+  );
 }

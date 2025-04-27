@@ -16,6 +16,7 @@ import {
   ArrowRightLeft,
   ChevronUp,
   LucideProps,
+  User,
   User2,
   Wrench,
 } from "lucide-react";
@@ -50,7 +51,7 @@ const groupsSideBar: GroupSideBar[] = [
   },
   {
     title: "Gerenciamento",
-    items: [{ title: "Ferramentas", url: "/tools", icon: Wrench }],
+    items: [{ title: "Ferramentas", url: "/tools", icon: Wrench }, { title: "Usuários", url: "/users", icon: User }],
   },
 ];
 
@@ -89,7 +90,7 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> Username
+                  <User2 /> Usuário
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -98,13 +99,10 @@ export function AppSidebar() {
                 className="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem>
-                  <span>Account</span>
+                  <span>Conta</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
+                  <span>Sair</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
