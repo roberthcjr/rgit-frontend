@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ferramentaria
+Atualmente, muitas empresas gerenciam suas ferramentas e equipamentos por meio de planilhas, o que pode levar a erros, perda de informação e falta de controle sobre os ativos. Este projeto propõe o desenvolvimento de um sistema web para gestão de ferramentas, permitindo controle eficiente sobre empréstimos, devoluções, manutenção e estoque. O sistema facilitará a gestão através de uma interface intuitiva e funcionalidades que garantam maior rastreabilidade e segurança das informações. Com a adoção de tecnologias modernas, como bancos de dados relacionais, autenticação segura e dashboards interativos, o projeto visa otimizar o tempo dos gestores e reduzir prejuízos causados por perdas ou extravios.
 
-## Getting Started
+# Como rodar
+:warning: **Serviço apenas para o frontend do projeto**: Para rodar os serviços, verifique o repositório: https://github.com/roberthcjr/rgit-backend
 
-First, run the development server:
-
+Clone o projeto
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/roberthcjr/rgit-frontend.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instale o `nvm` na sua máquina utilizando a documentação:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://github.com/nvm-sh/nvm
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Utilize o comando 
 
-## Learn More
+```bash
+nvm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+ na raiz do projeto para utilizar a versão padrão do `node`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Instale o `pnpm` utilizando a documentação:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+https://pnpm.io/pt/installation
 
-## Deploy on Vercel
+Instale as dependências do projeto utilizando o comando 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm i
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Rode o projeto com o comando 
+
+```bash
+pnpm dev
+```
