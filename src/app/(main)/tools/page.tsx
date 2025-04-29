@@ -6,8 +6,6 @@ import { ImportCsvDialog } from "./components/import-csv-dialog";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useState } from "react";
-import { AppSidebar } from "@/components/side-bar";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const queryClient = new QueryClient();
 
