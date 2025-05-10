@@ -2,6 +2,7 @@ export default class ApiClient {
   api: string = process.env.API ?? "http://localhost:8080";
   headers: Headers = new Headers({
     "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
   });
 
   get(url: string): Promise<Response> {

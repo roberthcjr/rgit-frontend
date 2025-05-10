@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoginSchema } from "../validator/login.validator";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import LoginService from "../service";
+import AuthenticationService from "../service";
 import { useMemo } from "react";
 import { showErrorToast } from "../components/login-toaster";
 import { LoginType } from "../model";
@@ -11,11 +11,11 @@ import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const loginService = useMemo(() => new LoginService(), []);
+  const authenticationService = useMemo(() => new AuthenticationService(), []);
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: (data: LoginType) => loginService.login(data),
+    mutationFn: (data: LoginType) => authenticationService.login(data),
     onError: (error) => {
       showErrorToast(error.message);
     },
