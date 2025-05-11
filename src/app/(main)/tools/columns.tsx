@@ -3,16 +3,34 @@
 import { ActionsRow } from "@/components/data-table/actions-row";
 import { DataTableColumnHeader } from "@/components/data-table/header-table";
 import { SimpleTooltip } from "@/components/simple-tooltip";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, RowExpanding } from "@tanstack/react-table";
 import { CircleCheckBig, CircleFadingArrowUp, CircleMinus } from "lucide-react";
 import { ReactNode } from "react";
 import { statusMap, Tool } from "./model";
 
 const statusIconMap: Record<string, ReactNode> = {
-  AVAILABLE: <SimpleTooltip message={statusMap["AVAILABLE"]}><CircleCheckBig/></SimpleTooltip>,
-  UNAVAILABLE: <SimpleTooltip message={statusMap["UNAVAILABLE"]}><CircleMinus/></SimpleTooltip>,
-  LENDED: <SimpleTooltip message={statusMap["LENDED"]}><CircleFadingArrowUp/></SimpleTooltip>,
+  AVAILABLE: (
+    <SimpleTooltip message={statusMap["AVAILABLE"]}>
+      <CircleCheckBig />
+    </SimpleTooltip>
+  ),
+  UNAVAILABLE: (
+    <SimpleTooltip message={statusMap["UNAVAILABLE"]}>
+      <CircleMinus />
+    </SimpleTooltip>
+  ),
+  LENDED: (
+    <SimpleTooltip message={statusMap["LENDED"]}>
+      <CircleFadingArrowUp />
+    </SimpleTooltip>
+  ),
 };
+
+// Quando definir um columns e desejar ter ações,
+// escrever o métodos onEdit e onDelete
+const onEdit = (data: Tool) => {};
+
+const onDelete = (data: Tool) => {};
 
 export const columns: ColumnDef<Tool>[] = [
   {
@@ -51,6 +69,14 @@ export const columns: ColumnDef<Tool>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <ActionsRow payment={row} />,
+    cell: ({ row }) => {
+      return (
+        <ActionsRow
+          rowData={row.original}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      );
+    },
   },
 ];

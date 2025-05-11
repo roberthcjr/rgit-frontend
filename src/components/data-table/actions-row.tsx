@@ -9,13 +9,22 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-export function ActionsRow({
-  payment: dataRow,
-}: {
-  payment: {
-    id: string;
-  };
-}) {
+type ActionsRowProps<T> = {
+  rowData: T;
+  onEdit: (data: T) => void; // Must match `rowData`'s type
+  onDelete: (data: T) => void; // Must match `rowData`'s type
+  actions?: {
+    label: string;
+    onClick: (data: T) => void; // Also matches `rowData`
+  }[];
+};
+
+export function ActionsRow<T>({
+  rowData,
+  onEdit,
+  onDelete,
+  actions,
+}: ActionsRowProps<T>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,13 +35,24 @@ export function ActionsRow({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Ações</DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => navigator.clipboard.writeText(dataRow.id)}
-        >
+        <DropdownMenuItem onClick={() => onEdit(rowData)}>
           Editar
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Deletar</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onDelete(rowData)}>
+          Deletar
+        </DropdownMenuItem>
+        {!!actions && actions.length > 0 && (
+          <>
+            <DropdownMenuSeparator />
+            {actions?.map((action, index) => (
+              <div key={index}>
+                <DropdownMenuItem onClick={() => action.onClick(rowData)}>
+                  {action.label}
+                </DropdownMenuItem>
+              </div>
+            ))}
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
