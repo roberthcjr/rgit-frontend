@@ -13,7 +13,7 @@ export default class ToolsService extends ApiClient {
     return super.get(`${this.endpoint}/${id}`);
   }
 
-  post(body: any): Promise<Response> {
+  post(body: string): Promise<Response> {
     return super.post(this.endpoint, body);
   }
 
@@ -31,7 +31,7 @@ export default class ToolsService extends ApiClient {
     return res.json();
   }
 
-  put(id: string, body: any): Promise<Response> {
+  put(id: string, body: string): Promise<Response> {
     return super.put(`${this.endpoint}/${id}`, body);
   }
 

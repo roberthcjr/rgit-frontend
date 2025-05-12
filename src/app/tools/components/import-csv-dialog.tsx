@@ -1,20 +1,32 @@
 import { CustomDialog } from "@/components/custom-dialog";
 import { Button } from "@/components/ui/button";
 import {
-  Form, FormControl, FormDescription, FormField,
-  FormItem, FormMessage
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Dispatch, SetStateAction } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { csvSchema } from "../validators/csvInputValidator";
+import { TypeOf, z } from "zod";
 
 interface ImportCsvProps {
-  form: any;
-  onSubmit: (values: any) => void;
+  form: UseFormReturn<z.infer<typeof csvSchema>>;
+  onSubmit: (values: TypeOf<typeof csvSchema>) => void;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ImportCsvDialog({ form, onSubmit, open, setOpen }: ImportCsvProps) {
+export function ImportCsvDialog({
+  form,
+  onSubmit,
+  open,
+  setOpen,
+}: ImportCsvProps) {
   return (
     <CustomDialog
       open={open}
