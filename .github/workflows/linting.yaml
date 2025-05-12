@@ -13,6 +13,8 @@ jobs:
         with:
           node-version: "v22.14.0"
 
-      - run: npm ci
+      - run: npm install -g pnpm@latest-10
 
-      - run: npm run lint
+      - run: pnpm ci
+
+      - run: pnpm run lint
