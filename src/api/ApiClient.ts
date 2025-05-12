@@ -12,7 +12,7 @@ export default class ApiClient {
     return fetch(getRequest);
   }
 
-  post(url: string, body: any): Promise<Response> {
+  post(url: string, body: string | FormData): Promise<Response> {
     const postRequest = new Request(`${this.api}/${url}`, {
       method: "POST",
       headers: this.headers,
@@ -21,7 +21,7 @@ export default class ApiClient {
     return fetch(postRequest);
   }
 
-  put(url: string, body: any): Promise<Response> {
+  put(url: string, body: string): Promise<Response> {
     const putRequest = new Request(`${this.api}/${url}`, {
       method: "PUT",
       headers: this.headers,
