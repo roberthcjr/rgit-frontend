@@ -13,7 +13,7 @@ export async function createSession(token: string): Promise<string> {
   const { exp } = decrypt(token);
   const expires = new Date(Date.now() + exp);
   const cookieStore = await cookies();
-  cookieStore.set("session", token, { expires, httpOnly: true });
+  cookieStore.set("session", token, { expires, httpOnly: false });
 
   return "/tools";
 }

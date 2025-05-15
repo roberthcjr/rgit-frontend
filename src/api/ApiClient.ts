@@ -1,3 +1,5 @@
+import { getCookie } from "cookies-next/client";
+
 export default class ApiClient {
   api: string = process.env.API ?? "http://localhost:8080";
   headers: Headers = new Headers({
@@ -46,7 +48,7 @@ export default class ApiClient {
     return fetch(deleteRequest);
   }
 
-  getSession(): string {
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYmVydCIsInN1YiI6IjhjNjQ0ZDUyLTRiNDQtNGM2YS05OGMzLTI1YmZkYWUwYjIwYiIsImlhdCI6MTc0NzMxOTk0NywiZXhwIjoxNzQ3NDkyNzQ3fQ.FSkC0-xUnUEI-UqLFG9PdalK85-uzjjUFxKa0RJzwPw";
+  getSession(): string | undefined {
+    return getCookie("session")?.toString();
   }
 }
