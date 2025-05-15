@@ -1,8 +1,8 @@
 "use server";
 
-import { LoginSchema } from "@/app/login/validator/login.validator";
-import AuthenticationService from "@/app/login/service";
-import { createSession } from "@/app/login/_lib/session";
+import { LoginSchema } from "@/app/(public)/(auth)/login/validator/login.validator";
+import AuthenticationService from "@/app/(public)/(auth)/login/service";
+import { createSession } from "@/app/(public)/(auth)/_lib/session";
 import { redirect } from "next/navigation";
 
 export async function signIn(state, formData: FormData) {

@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useLogin } from "../hooks/useLogin";
 import { useActionState } from "react";
-import { signIn } from "../actions/signin";
+import { signIn } from "../../actions/signin";
 
 export default function LoginForm() {
   const [state, action, pending] = useActionState(signIn);

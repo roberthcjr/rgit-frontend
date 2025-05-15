@@ -1,6 +1,6 @@
 import "server-only";
 
-import { CustomJwtPayload } from "@/app/login/types/auth.type";
+import { CustomJwtPayload } from "@/app/(public)/(auth)/types/auth.type";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
