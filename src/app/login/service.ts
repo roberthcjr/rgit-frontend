@@ -1,12 +1,17 @@
 import ApiClient from "@/api/ApiClient";
 import { LoginType } from "./model";
+import { LoginResponseType } from "@/app/login/types/auth.type";
 
 // TODO: extends UserService when its created
 export default class AuthenticationService extends ApiClient {
-  endpoint: string = 'auth';
+  endpoint: string = "auth";
 
-  async login({username, password}: LoginType) {
-    const res = await super.post(`${this.endpoint}/login`, JSON.stringify({username, password}));
+  async login({ username, password }: LoginType): Promise<LoginResponseType> {
+    const res = await super.post(
+      `${this.endpoint}/login`,
+      JSON.stringify({ username, password }),
+      { "Content-Type": "application/json" }
+    );
 
     if (!res.ok) {
       const errorData = await res.json();
