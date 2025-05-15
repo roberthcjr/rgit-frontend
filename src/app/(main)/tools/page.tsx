@@ -19,18 +19,25 @@ export default function Page() {
 
 function Tools() {
   const [open, setOpen] = useState(false);
-  const { query, form, onSubmit } = useTools({setOpen});
+  const { query, form, onSubmit } = useTools({ setOpen });
 
   return (
-    <div className="container">
-      <ToolsTable data={query.data ?? []} />
-      <div className="flex items-end">
-        <ImportCsvDialog open={open} setOpen={setOpen} form={form} onSubmit={onSubmit} />
-        <Button className="cursor-pointer m-2" variant="default">
-          <CirclePlus />
-          Inserir
-        </Button>
+    <>
+      <div className="container">
+        <ToolsTable data={query.data ?? []} />
+        <div className="flex items-end">
+          <ImportCsvDialog
+            open={open}
+            setOpen={setOpen}
+            form={form}
+            onSubmit={onSubmit}
+          />
+          <Button className="cursor-pointer m-2" variant="default">
+            <CirclePlus />
+            Inserir
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

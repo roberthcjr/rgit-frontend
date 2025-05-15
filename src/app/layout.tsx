@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/side-bar";
 import { Toaster } from "@/components/ui/sonner";
 
 const robotoSans = Roboto({
@@ -30,12 +28,8 @@ export default function RootLayout({
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarTrigger />
-          {children}
-          <Toaster />
-        </SidebarProvider>
+        {children}
+        <Toaster />
       </body>
     </html>
   );

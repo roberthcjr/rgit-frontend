@@ -1,7 +1,10 @@
+import { getCookie } from "cookies-next/client";
+
 export default class ApiClient {
   api: string = process.env.API ?? "http://localhost:8080";
   headers: Headers = new Headers({
     "Access-Control-Allow-Origin": "*",
+    Authorization: `Bearer ${this.getSession()}`,
   });
 
   get(url: string): Promise<Response> {
@@ -12,10 +15,17 @@ export default class ApiClient {
     return fetch(getRequest);
   }
 
-  post(url: string, body: string | FormData): Promise<Response> {
+  post(
+    url: string,
+    body: string | FormData,
+    headers?: { "Content-Type": string }
+  ): Promise<Response> {
+    const customHeaders = this.headers;
+    if (headers)
+      customHeaders.set(Object.keys(headers)[0], Object.values(headers)[0]);
     const postRequest = new Request(`${this.api}/${url}`, {
       method: "POST",
-      headers: this.headers,
+      headers: customHeaders,
       body,
     });
     return fetch(postRequest);
@@ -36,5 +46,9 @@ export default class ApiClient {
       headers: this.headers,
     });
     return fetch(deleteRequest);
+  }
+
+  getSession(): string | undefined {
+    return getCookie("session")?.toString();
   }
 }

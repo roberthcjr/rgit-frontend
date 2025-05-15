@@ -16,6 +16,7 @@ import {
   ArrowRightLeft,
   ChevronUp,
   LucideProps,
+  User,
   User2,
   Wrench,
 } from "lucide-react";
@@ -26,8 +27,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { deleteCookie } from "cookies-next/client";
 
 type ItemSideBar = {
   title: string;
@@ -46,16 +48,25 @@ type GroupSideBar = {
 const groupsSideBar: GroupSideBar[] = [
   {
     title: "Ferramentas",
-    items: [{ title: "Empréstimos", url: "#", icon: ArrowRightLeft }],
+    items: [{ title: "Empréstimos", url: "/lends", icon: ArrowRightLeft }],
   },
   {
     title: "Gerenciamento",
-    items: [{ title: "Ferramentas", url: "/tools", icon: Wrench }],
+    items: [
+      { title: "Ferramentas", url: "/tools", icon: Wrench },
+      { title: "Usuários", url: "/users", icon: User },
+    ],
   },
 ];
 
 export function AppSidebar() {
   const actualPath = usePathname();
+  // TODO: changes this logic to an isolate place
+  const router = useRouter();
+  const signOut = () => {
+    deleteCookie("session");
+    router.push("/login");
+  };
   return (
     <Sidebar>
       <SidebarHeader className="font-bold">RGIT</SidebarHeader>
@@ -88,8 +99,8 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Username
+                <SidebarMenuButton className="cursor-pointer">
+                  <User2 /> Usuário
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -97,14 +108,8 @@ export function AppSidebar() {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
+                <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+                  Sair
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
