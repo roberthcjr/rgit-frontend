@@ -20,7 +20,7 @@ export default class ApiClient {
     body: string | FormData,
     headers?: { "Content-Type": string }
   ): Promise<Response> {
-    let customHeaders = this.headers;
+    const customHeaders = this.headers;
     if (headers)
       customHeaders.set(Object.keys(headers)[0], Object.values(headers)[0]);
     const postRequest = new Request(`${this.api}/${url}`, {

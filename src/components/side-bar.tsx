@@ -29,7 +29,6 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { Button } from "./ui/button";
 import { deleteCookie } from "cookies-next/client";
 
 type ItemSideBar = {
