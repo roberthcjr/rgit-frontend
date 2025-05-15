@@ -2,7 +2,7 @@ export default class ApiClient {
   api: string = process.env.API ?? "http://localhost:8080";
   headers: Headers = new Headers({
     "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
+    Authorization: `Bearer ${this.getSession()}`,
   });
 
   get(url: string): Promise<Response> {
@@ -13,10 +13,17 @@ export default class ApiClient {
     return fetch(getRequest);
   }
 
-  post(url: string, body: string | FormData): Promise<Response> {
+  post(
+    url: string,
+    body: string | FormData,
+    headers?: { "Content-Type": string }
+  ): Promise<Response> {
+    let customHeaders = this.headers;
+    if (headers)
+      customHeaders.set(Object.keys(headers)[0], Object.values(headers)[0]);
     const postRequest = new Request(`${this.api}/${url}`, {
       method: "POST",
-      headers: this.headers,
+      headers: customHeaders,
       body,
     });
     return fetch(postRequest);
@@ -37,5 +44,9 @@ export default class ApiClient {
       headers: this.headers,
     });
     return fetch(deleteRequest);
+  }
+
+  getSession(): string {
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYmVydCIsInN1YiI6IjhjNjQ0ZDUyLTRiNDQtNGM2YS05OGMzLTI1YmZkYWUwYjIwYiIsImlhdCI6MTc0NzMxOTk0NywiZXhwIjoxNzQ3NDkyNzQ3fQ.FSkC0-xUnUEI-UqLFG9PdalK85-uzjjUFxKa0RJzwPw";
   }
 }
