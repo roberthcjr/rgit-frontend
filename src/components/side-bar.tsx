@@ -27,8 +27,10 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { Button } from "./ui/button";
+import { deleteCookie } from "cookies-next/client";
 
 type ItemSideBar = {
   title: string;
@@ -51,12 +53,21 @@ const groupsSideBar: GroupSideBar[] = [
   },
   {
     title: "Gerenciamento",
-    items: [{ title: "Ferramentas", url: "/tools", icon: Wrench }, { title: "Usuários", url: "/users", icon: User }],
+    items: [
+      { title: "Ferramentas", url: "/tools", icon: Wrench },
+      { title: "Usuários", url: "/users", icon: User },
+    ],
   },
 ];
 
 export function AppSidebar() {
   const actualPath = usePathname();
+  // TODO: changes this logic to an isolate place
+  const router = useRouter();
+  const signOut = () => {
+    deleteCookie("session");
+    router.push("/login");
+  };
   return (
     <Sidebar>
       <SidebarHeader className="font-bold">RGIT</SidebarHeader>
@@ -89,7 +100,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
+                <SidebarMenuButton className="cursor-pointer">
                   <User2 /> Usuário
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
@@ -98,11 +109,8 @@ export function AppSidebar() {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
-                  <span>Conta</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sair</span>
+                <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+                  Sair
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
