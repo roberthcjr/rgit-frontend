@@ -1,4 +1,4 @@
-enum Status {
+export enum Status {
   AVAILABLE = "Disponível",
   UNAVAILABLE = "Indisponível",
   LENDED = "Emprestada",
@@ -18,3 +18,9 @@ export const statusMap: Record<string, Status> = {
   UNAVAILABLE: Status.UNAVAILABLE,
   LENDED: Status.LENDED,
 };
+
+export const statusSelectOptions: { label: string; value: string }[] =
+  Object.entries(statusMap).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
