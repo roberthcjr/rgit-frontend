@@ -11,7 +11,7 @@ export function decrypt(token: string): CustomJwtPayload {
 
 export async function createSession(token: string): Promise<string> {
   const { exp } = decrypt(token);
-  const expires = new Date(Date.now() + exp);
+  const expires = new Date(exp ? Date.now() + exp : Date.now());
   const cookieStore = await cookies();
   cookieStore.set("session", token, { expires, httpOnly: false });
 
