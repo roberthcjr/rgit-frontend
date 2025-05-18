@@ -14,7 +14,15 @@ import { useActionState } from "react";
 import { signIn } from "../../actions/signin";
 
 export default function LoginForm() {
-  const [state, action, pending] = useActionState(signIn);
+  const [state, action, pending] = useActionState<
+    {
+      errors: {
+        username?: string[] | undefined;
+        password?: string[] | undefined;
+      };
+    },
+    FormData
+  >(signIn, { errors: {} });
   const { form } = useLogin();
 
   return (
