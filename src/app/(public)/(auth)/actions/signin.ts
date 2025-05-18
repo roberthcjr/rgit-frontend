@@ -5,7 +5,15 @@ import AuthenticationService from "@/app/(public)/(auth)/login/service";
 import { createSession } from "@/app/(public)/(auth)/_lib/session";
 import { redirect } from "next/navigation";
 
-export async function signIn(state, formData: FormData) {
+export async function signIn(
+  state: {
+    errors: {
+      username?: string[] | undefined;
+      password?: string[] | undefined;
+    };
+  },
+  formData: FormData
+) {
   let path = "/";
   try {
     const validationResult = LoginSchema.safeParse({
