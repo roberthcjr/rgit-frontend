@@ -2,7 +2,6 @@ import ApiClient from "@/api/ApiClient";
 import { LoginType } from "./model";
 import { LoginResponseType } from "@/app/(public)/(auth)/types/auth.type";
 
-// TODO: extends UserService when its created
 export default class AuthenticationService extends ApiClient {
   endpoint: string = "auth";
 
