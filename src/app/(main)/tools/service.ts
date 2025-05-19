@@ -1,6 +1,8 @@
 import ApiClient from "@/api/ApiClient";
 import { Tool } from "./model";
 
+//TODO:Implement next-cache
+
 export default class ToolsService extends ApiClient {
   endpoint: string = "tools";
 
@@ -14,7 +16,9 @@ export default class ToolsService extends ApiClient {
   }
 
   post(body: string | FormData): Promise<Response> {
-    return super.post(this.endpoint, body);
+    return super.post(this.endpoint, body, {
+      "Content-Type": "application/json",
+    });
   }
 
   async postCSV(file: File) {
