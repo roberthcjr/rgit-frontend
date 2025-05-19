@@ -86,7 +86,7 @@ export function InsertToolDialog({
                   </FormControl>
                   <SelectContent>
                     {statusSelectOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.label}>
+                      <SelectItem key={option.value} value={option.value}>
                         {option.label}
                       </SelectItem>
                     ))}
@@ -122,7 +122,12 @@ export function InsertToolDialog({
               <FormItem>
                 <FormDescription>Categoria da ferramenta</FormDescription>
                 <FormControl>
-                  <Input className="p-2" />
+                  <Input
+                    onChange={(input) => {
+                      field.onChange(input.target.value);
+                    }}
+                    className="p-2"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

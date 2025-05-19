@@ -13,7 +13,7 @@ export default class ToolsService extends ApiClient {
     return super.get(`${this.endpoint}/${id}`);
   }
 
-  post(body: string): Promise<Response> {
+  post(body: string | FormData): Promise<Response> {
     return super.post(this.endpoint, body);
   }
 

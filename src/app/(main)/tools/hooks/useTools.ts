@@ -4,7 +4,8 @@ import ToolsService from "../service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { csvSchema } from "../validators/csvInputValidator";
-import { toolSchema } from "../validators/toolInputValidator";
+import { toolFormSchema } from "../validators/toolInputValidator";
+import { toolSchema } from "../helpers/toolInputHelper";
 import { Status } from "../model";
 import { z } from "zod";
 import { showErrorToast, showSuccessToast } from "../components/toaster";
@@ -12,6 +13,22 @@ import { showErrorToast, showSuccessToast } from "../components/toaster";
 type UseTools = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+function objectToFormData(obj: Record<string, any>): FormData {
+  const formData = new FormData();
+
+  Object.entries(obj).forEach(([key, value]) => {
+    if (value === undefined) return;
+
+    if (typeof value === "object" && value !== null) {
+      formData.append(key, JSON.stringify(value));
+    } else {
+      formData.append(key, String(value));
+    }
+  });
+
+  return formData;
+}
 
 export function useToolsQueryClient() {
   const toolsService = useMemo(() => new ToolsService(), []);
@@ -54,7 +71,7 @@ export function useTools({ setOpen }: UseTools) {
   const toolsService = useMemo(() => new ToolsService(), []);
 
   const mutation = useMutation({
-    mutationFn: (data: any) => toolsService.post(data),
+    mutationFn: (data: any) => toolsService.post(JSON.stringify(data)),
     onError: () => {
       showErrorToast();
     },
@@ -65,14 +82,16 @@ export function useTools({ setOpen }: UseTools) {
     },
   });
 
-  const form = useForm<z.infer<typeof toolSchema>>({
-    resolver: zodResolver(toolSchema),
-    defaultValues: { status: Object.values(Status)[0] },
+  const form = useForm<z.infer<typeof toolFormSchema>>({
+    resolver: zodResolver(toolFormSchema),
+    defaultValues: { status: Object.keys(Status)[0] as keyof typeof Status },
   });
 
-  const onSubmit = (values: z.infer<typeof toolSchema>) => {
-    console.log("onSubmit", values);
-    mutation.mutate(values);
+  const onSubmit = (values: z.infer<typeof toolFormSchema>) => {
+    console.log(values);
+    const processedData = toolSchema.parse(values);
+    console.log("processedData", processedData);
+    mutation.mutate(processedData);
   };
 
   return { form, onSubmit };
