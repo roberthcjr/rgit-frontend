@@ -12,17 +12,10 @@ import { Input } from "@/components/ui/input";
 import { useLogin } from "../hooks/useLogin";
 import { useActionState } from "react";
 import { signIn } from "../../actions/signin";
+import { initialState } from "../../types/action.type";
 
 export default function LoginForm() {
-  const [state, action, pending] = useActionState<
-    {
-      errors: {
-        username?: string[] | undefined;
-        password?: string[] | undefined;
-      };
-    },
-    FormData
-  >(signIn, { errors: {} });
+  const [state, action, isPending] = useActionState(signIn, initialState);
   const { form } = useLogin();
 
   return (
@@ -39,7 +32,7 @@ export default function LoginForm() {
                   <Input placeholder="usuário" {...field} />
                 </FormControl>
 
-                {state?.errors.username && (
+                {state?.errors?.username && (
                   <>
                     <FormDescription>{state.errors.username}</FormDescription>
                     <FormMessage />
@@ -57,7 +50,7 @@ export default function LoginForm() {
                 <FormControl>
                   <Input placeholder="senha" type="password" {...field} />
                 </FormControl>
-                {state?.errors.password && (
+                {state?.errors?.password && (
                   <>
                     <FormDescription>{state.errors.password}</FormDescription>
                     <FormMessage />
@@ -66,8 +59,8 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="cursor-pointer" disabled={pending}>
-            {pending ? "Entrando..." : "Entrar"}
+          <Button type="submit" className="cursor-pointer" disabled={isPending}>
+            {isPending ? "Entrando..." : "Entrar"}
           </Button>
         </form>
       </Form>
