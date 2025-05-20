@@ -4,9 +4,10 @@ import { LoginSchema } from "@/app/(public)/(auth)/login/validator/login.validat
 import AuthenticationService from "@/app/(public)/(auth)/login/service";
 import { createSession } from "@/app/(public)/(auth)/_lib/session";
 import { redirect } from "next/navigation";
+import { Action, State } from "../types/action.type";
 
-export async function signIn(state, formData: FormData) {
-  let path = "/";
+export const signIn: Action = async (state: State, formData: FormData) => {
+  let path;
   try {
     const validationResult = LoginSchema.safeParse({
       username: formData.get("username"),
@@ -27,7 +28,21 @@ export async function signIn(state, formData: FormData) {
     path = await createSession(accessToken);
   } catch (error) {
     console.error(error);
-  } finally {
-    redirect(path);
+    // Retorna erro genérico em caso de falha na autenticação ou outro erro
+    return {
+      errors: {
+        username: ["Erro inesperado. Tente novamente."],
+      },
+    };
   }
-}
+
+  // Se chegou até aqui e há path, faz o redirect
+  if (path) redirect(path);
+
+  // Fallback se não redirecionar por algum motivo (não esperado)
+  return {
+    errors: {
+      username: ["Não foi possível redirecionar."],
+    },
+  };
+};

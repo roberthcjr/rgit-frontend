@@ -1,7 +1,7 @@
 import { getCookie } from "cookies-next/client";
 
 export default class ApiClient {
-  api: string = process.env.API ?? "http://localhost:8080";
+  api: string = process.env.NEXT_PUBLIC_API ?? "http://localhost:8080";
   headers: Headers = new Headers({
     "Access-Control-Allow-Origin": "*",
     Authorization: `Bearer ${this.getSession()}`,

@@ -8,8 +8,14 @@ export type Tool = {
   id: string;
   name: string;
   status: Status;
-  brand: string;
-  category?: string;
+  brand: {
+    id: string;
+    name: string;
+  };
+  category?: {
+    id: string;
+    name: string;
+  };
   insertedAt?: string;
 };
 
