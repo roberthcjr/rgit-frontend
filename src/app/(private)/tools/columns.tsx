@@ -9,9 +9,21 @@ import { ReactNode } from "react";
 import { statusMap, Tool } from "./model";
 
 const statusIconMap: Record<string, ReactNode> = {
-  AVAILABLE: <SimpleTooltip message={statusMap["AVAILABLE"]}><CircleCheckBig/></SimpleTooltip>,
-  UNAVAILABLE: <SimpleTooltip message={statusMap["UNAVAILABLE"]}><CircleMinus/></SimpleTooltip>,
-  LENDED: <SimpleTooltip message={statusMap["LENDED"]}><CircleFadingArrowUp/></SimpleTooltip>,
+  AVAILABLE: (
+    <SimpleTooltip message={statusMap["AVAILABLE"]}>
+      <CircleCheckBig />
+    </SimpleTooltip>
+  ),
+  UNAVAILABLE: (
+    <SimpleTooltip message={statusMap["UNAVAILABLE"]}>
+      <CircleMinus />
+    </SimpleTooltip>
+  ),
+  LENDED: (
+    <SimpleTooltip message={statusMap["LENDED"]}>
+      <CircleFadingArrowUp />
+    </SimpleTooltip>
+  ),
 };
 
 export const columns: ColumnDef<Tool>[] = [
@@ -22,22 +34,26 @@ export const columns: ColumnDef<Tool>[] = [
     ),
   },
   {
-    accessorKey: "category",
+    accessorKey: "category.name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Categoria" />
     ),
   },
   {
-    accessorKey: "brand",
+    accessorKey: "brand.name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Marca" />
     ),
   },
   {
-    accessorKey: "insertedAt",
+    accessorKey: "inserted_at",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Data de Compra" />
     ),
+    cell: ({ row }) => {
+      const dateFormatted = new Date(row.getValue("inserted_at"));
+      return dateFormatted.toLocaleDateString("pt-BR");
+    },
   },
   {
     accessorKey: "status",
