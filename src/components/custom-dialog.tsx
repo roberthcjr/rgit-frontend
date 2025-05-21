@@ -36,7 +36,7 @@ export function CustomDialog({
           <DialogDescription asChild>{children}</DialogDescription>
         </DialogHeader>
         {!!hasFooter && (
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter className="sm:justify-center mt-6">
             <DialogClose asChild>
               <Button type="button" variant="secondary">
                 Fechar
