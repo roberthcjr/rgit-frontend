@@ -10,34 +10,34 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { DeleteDialog } from "../delete-dialog";
 
 type ActionsRowProps<T> = {
   rowData: T;
   onEdit: (data: T) => void; // Must match `rowData`'s type
-  onDelete: (data: T) => void; // Must match `rowData`'s type
+  deleteProps: {
+    onDelete: (data: T) => void;
+    openDelete: boolean;
+    setDelete: Dispatch<SetStateAction<boolean>>;
+  }; // Must match `rowData`'s type
   actions?: {
     label: string;
     onClick: (data: T) => void; // Also matches `rowData`
   }[];
+
   title: string;
 };
 
 export function ActionsRow<T>({
   rowData,
   onEdit,
-  onDelete,
+  deleteProps,
   actions,
   title,
 }: ActionsRowProps<T>) {
-  const [open, setOpen] = useState(false);
+  const { onDelete, openDelete, setDelete } = deleteProps;
 
-  const handleConfirm = () => {
-    onDelete(rowData);
-    setOpen(true);
-    console.log(open);
-  };
   return (
     <>
       <DropdownMenu>
@@ -52,7 +52,7 @@ export function ActionsRow<T>({
           <DropdownMenuItem onClick={() => onEdit(rowData)}>
             Editar
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleConfirm()}>
+          <DropdownMenuItem onClick={() => setDelete(true)}>
             Deletar
           </DropdownMenuItem>
           {!!actions && actions.length > 0 && (
@@ -70,9 +70,12 @@ export function ActionsRow<T>({
         </DropdownMenuContent>
       </DropdownMenu>
       <DeleteDialog
-        title="Ferramentas"
-        open={open}
-        setOpen={setOpen}
+        title={title}
+        open={openDelete}
+        setOpen={setDelete}
+        onDelete={() => {
+          onDelete(rowData);
+        }}
       ></DeleteDialog>
     </>
   );

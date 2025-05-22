@@ -6,9 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { csvSchema } from "../validators/csvInputValidator";
 import { toolFormSchema } from "../validators/toolInputValidator";
 import { toolSchema } from "../helpers/toolInputHelper";
-import { Status } from "../model";
+import { Status, Tool } from "../model";
 import { z } from "zod";
-import { showErrorToast, showSuccessToast } from "../components/toaster";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showErrorGeneral,
+  showSuccesDelete,
+} from "../components/toaster";
 
 type UseTools = {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -95,4 +100,27 @@ export function useTools({ setOpen }: UseTools) {
   };
 
   return { form, onSubmit };
+}
+
+export function getDeleteSubmit({ setOpen }: UseTools) {
+  const toolsService = useMemo(() => new ToolsService(), []);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id: string) => toolsService.delete(id),
+    onError: () => {
+      showErrorGeneral();
+    },
+    onSuccess: () => {
+      showSuccesDelete("Ferramenta");
+      queryClient.invalidateQueries({ queryKey: ["tools"] });
+      if (setOpen) setOpen(false);
+    },
+  });
+
+  const onSubmit = (value: Tool) => {
+    mutation.mutate(value.id);
+  };
+
+  return onSubmit;
 }

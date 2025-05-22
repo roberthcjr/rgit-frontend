@@ -17,6 +17,7 @@ interface CustomDialogProps extends DialogProps {
   trigger?: ReactNode;
   title: string;
   hasFooter?: boolean;
+  handleOnSubmit?: (data?: any) => void;
 }
 
 export function CustomDialog({
@@ -25,7 +26,6 @@ export function CustomDialog({
   title,
   open,
   onOpenChange,
-  hasFooter = false,
 }: CustomDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -35,16 +35,6 @@ export function CustomDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription asChild>{children}</DialogDescription>
         </DialogHeader>
-        {!!hasFooter && (
-          <DialogFooter className="sm:justify-center mt-6">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Fechar
-              </Button>
-            </DialogClose>
-            <Button type="submit">Confirmar</Button>
-          </DialogFooter>
-        )}
       </DialogContent>
     </Dialog>
   );

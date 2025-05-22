@@ -5,6 +5,7 @@ import { ToolsTable } from "./components/tools-table";
 import { ImportCsvDialog } from "./components/import-csv-dialog";
 import { InsertToolDialog } from "./components/insert-dialog";
 import { useState } from "react";
+import { DeleteDialog } from "@/components/delete-dialog";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,7 @@ export default function Page() {
 }
 
 function Tools() {
-  const [openInserCsv, setOpenInsertCsv] = useState(false);
+  const [openInsertCsv, setOpenInsertCsv] = useState(false);
   const [opentInsertTool, setOpenInsertTool] = useState(false);
   const query = useToolsQueryClient();
   const { form: insertCsvForm, onSubmit: onSubmitCsv } = useToolsCsv({
@@ -33,7 +34,7 @@ function Tools() {
         <ToolsTable data={query.data ?? []} />
         <div className="flex items-end">
           <ImportCsvDialog
-            open={openInserCsv}
+            open={openInsertCsv}
             setOpen={setOpenInsertCsv}
             form={insertCsvForm}
             onSubmit={onSubmitCsv}
