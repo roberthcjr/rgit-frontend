@@ -25,7 +25,7 @@ export function CustomDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="flex justify-center">
+      <DialogContent className="flex justify-center w-xs">
         <DialogHeader className="flex items-center justify-center">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription asChild>{children}</DialogDescription>
