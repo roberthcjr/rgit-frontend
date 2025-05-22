@@ -7,7 +7,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint:eslint:check": "next lint",
+    "lint:prettier:check": "prettier --check .",
+    "lint:prettier:format": "prettier --write .",
     "prepare": "husky",
     "commit": "cz"
   },
