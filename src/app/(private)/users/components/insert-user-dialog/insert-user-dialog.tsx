@@ -37,7 +37,7 @@ export function InsertUserDialog({ form, open, setOpen }: InsertUserProps) {
       title="Inserir Usuário"
     >
       <Form {...form}>
-        <form action={action} className="flex flex-col gap-4 mt-4">
+        <form action={action} className="flex flex-col gap-3 mt-4">
           {(Object.keys(insertFormFields) as Array<keyof UserType>).map(
             (key) => {
               return (
@@ -51,9 +51,24 @@ export function InsertUserDialog({ form, open, setOpen }: InsertUserProps) {
               );
             },
           )}
-          <Button type="submit" className="cursor-pointer" disabled={isPending}>
-            {isPending ? "Inserindo..." : "Inserir"}
-          </Button>
+          <div className="flex justify-between">
+            <Button
+              type="submit"
+              className="cursor-pointer"
+              disabled={isPending}
+            >
+              {isPending ? "Inserindo..." : "Inserir"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="cursor-pointer"
+              disabled={isPending}
+              onClick={() => setOpen(false)}
+            >
+              {isPending ? "Inserindo..." : "Cancelar"}
+            </Button>
+          </div>
         </form>
       </Form>
     </CustomDialog>
