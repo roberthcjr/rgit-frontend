@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/data-table/data-table";
 import { columns } from "../columns";
-import { User } from "../model";
+import { User } from "../types/user-type";
 
 export function UsersTable({ data }: { data: User[] }) {
   return (

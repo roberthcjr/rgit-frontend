@@ -1,12 +1,32 @@
 import ApiClient from "@/api/ApiClient";
-import { User } from "./model";
+import { UserType } from "./types/user-type";
 
 export default class UsersService extends ApiClient {
   endpoint: string = "users";
 
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<UserType[]> {
     const response: Response = await super.get(this.endpoint);
     return response.json();
+  }
+
+  async insertUser(
+    { name, surname, username, password, job, section }: UserType,
+    token?: string,
+  ): Promise<void | Error> {
+    const response: Response = await super.post(
+      this.endpoint,
+      JSON.stringify({
+        name,
+        surname,
+        username,
+        password,
+        job,
+        section,
+      }),
+      { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    );
+
+    if (!response.ok) throw new Error("Houve um erro na inserção");
   }
 
   get(id: string): Promise<Response> {

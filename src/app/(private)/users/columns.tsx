@@ -3,7 +3,7 @@
 import { ActionsRow } from "@/components/data-table/actions-row";
 import { DataTableColumnHeader } from "@/components/data-table/header-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "./model";
+import { User } from "./types/user-type";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -28,13 +28,13 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "section",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Seção" />
-    )
+    ),
   },
   {
     accessorKey: "username",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Username" />
-    )
+    ),
   },
   {
     id: "actions",
