@@ -11,8 +11,12 @@ export const toolFormSchema = z.object({
     required_error: "Um nome para a ferramenta é necessário",
   }),
   status: z.enum(zodEnumValues),
-  brand: z.string({
-    required_error: "Um nome para a marca é necessário",
+  brand: z.object({
+    name: z.string().min(1, "Um nome para a marca é necessário"),
   }),
-  category: z.string().optional(),
+  category: z
+    .object({
+      name: z.string(),
+    })
+    .optional(),
 });

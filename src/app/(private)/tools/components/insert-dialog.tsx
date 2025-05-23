@@ -58,12 +58,7 @@ export function InsertToolDialog({
               <FormItem>
                 <FormDescription>Nome da ferramenta</FormDescription>
                 <FormControl>
-                  <Input
-                    className="p-2"
-                    onChange={(input) => {
-                      field.onChange(input.target.value);
-                    }}
-                  />
+                  <Input className="p-2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,40 +70,32 @@ export function InsertToolDialog({
             render={({ field }) => (
               <FormItem>
                 <FormDescription>Status da ferramenta</FormDescription>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
+                <FormControl>
+                  <Select {...field}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {statusSelectOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    <SelectContent>
+                      {statusSelectOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="brand"
+            name="brand.name"
             render={({ field }) => (
               <FormItem>
                 <FormDescription>Marca</FormDescription>
                 <FormControl>
-                  <Input
-                    className="p-2"
-                    onChange={(input) => {
-                      field.onChange(input.target.value);
-                    }}
-                  />
+                  <Input className="p-2" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -117,17 +104,12 @@ export function InsertToolDialog({
           />
           <FormField
             control={form.control}
-            name="category"
+            name="category.name"
             render={({ field }) => (
               <FormItem>
                 <FormDescription>Categoria da ferramenta</FormDescription>
                 <FormControl>
-                  <Input
-                    onChange={(input) => {
-                      field.onChange(input.target.value);
-                    }}
-                    className="p-2"
-                  />
+                  <Input {...field} className="p-2" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

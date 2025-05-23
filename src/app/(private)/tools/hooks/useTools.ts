@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { csvSchema } from "../validators/csvInputValidator";
 import { toolFormSchema } from "../validators/toolInputValidator";
-import { toolSchema } from "../helpers/toolInputHelper";
 import { Status, Tool } from "../model";
 import { z } from "zod";
 import {
@@ -89,14 +88,16 @@ export function useTools({ setOpen }: UseTools) {
 
   const form = useForm<z.infer<typeof toolFormSchema>>({
     resolver: zodResolver(toolFormSchema),
-    defaultValues: { status: Object.keys(Status)[0] as keyof typeof Status },
+    defaultValues: {
+      name: "",
+      status: Object.keys(Status)[0] as keyof typeof Status,
+      brand: { name: "" },
+      category: { name: "" },
+    },
   });
 
   const onSubmit = (values: z.infer<typeof toolFormSchema>) => {
-    console.log(values);
-    const processedData = toolSchema.parse(values);
-    console.log("processedData", processedData);
-    mutation.mutate(processedData);
+    mutation.mutate(values);
   };
 
   return { form, onSubmit };
