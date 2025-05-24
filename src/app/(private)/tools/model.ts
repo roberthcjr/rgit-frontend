@@ -4,8 +4,9 @@ export enum Status {
   LENDED = "Emprestada",
 }
 
+//TODO: averiguar mudança de id de string para number
 export type Tool = {
-  id: string;
+  id: number;
   name: string;
   status: Status;
   brand: {

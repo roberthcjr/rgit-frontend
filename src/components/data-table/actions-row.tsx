@@ -12,14 +12,21 @@ import {
 } from "../ui/dropdown-menu";
 import { Dispatch, SetStateAction, useState } from "react";
 import { DeleteDialog } from "../delete-dialog";
+import { CustomDialog } from "../custom-dialog";
+import { ToolForm } from "@/app/(private)/tools/components/forms/tool-form";
 
 type ActionsRowProps<T> = {
   rowData: T;
-  onEdit: (data: T) => void; // Must match `rowData`'s type
   deleteProps: {
-    onDelete: (data: T) => void;
+    onSubmit: (data: T) => void;
     openDelete: boolean;
     setDelete: Dispatch<SetStateAction<boolean>>;
+  }; // Must match `rowData`'s type
+  editProps: {
+    onSubmit: (data: T) => void;
+    openEdit: boolean;
+    setEdit: Dispatch<SetStateAction<boolean>>;
+    form: any; // Form type, e.g., React Hook Form
   }; // Must match `rowData`'s type
   actions?: {
     label: string;
@@ -31,13 +38,15 @@ type ActionsRowProps<T> = {
 
 export function ActionsRow<T>({
   rowData,
-  onEdit,
+  editProps,
   deleteProps,
   actions,
   title,
 }: ActionsRowProps<T>) {
-  const { onDelete, openDelete, setDelete } = deleteProps;
+  const { onSubmit:onDelete, openDelete, setDelete } = deleteProps;
+  const { form:editForm, onSubmit:onEdit, openEdit, setEdit } = editProps;
 
+  
   return (
     <>
       <DropdownMenu>
@@ -49,7 +58,7 @@ export function ActionsRow<T>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onEdit(rowData)}>
+          <DropdownMenuItem onClick={() => setEdit(true)}>
             Editar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setDelete(true)}>
@@ -77,6 +86,16 @@ export function ActionsRow<T>({
           onDelete(rowData);
         }}
       ></DeleteDialog>
+      <CustomDialog
+        open={openEdit}
+        onOpenChange={setEdit}
+        title={`Editar ${title}`}
+      >
+        <ToolForm
+          form={editForm}
+          onSubmit={onEdit}
+        />
+      </CustomDialog>
     </>
   );
 }

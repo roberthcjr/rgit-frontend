@@ -7,7 +7,7 @@ import { ColumnDef, RowExpanding } from "@tanstack/react-table";
 import { CircleCheckBig, CircleFadingArrowUp, CircleMinus } from "lucide-react";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { statusMap, Tool } from "./model";
-import { getDeleteSubmit } from "./hooks/useTools";
+import { getDeleteSubmit, getEditForm, getEditSubmit } from "./hooks/useTools";
 import { set } from "zod";
 
 const statusIconMap: Record<string, ReactNode> = {
@@ -36,16 +36,28 @@ const makeDeleteProps = ([toDelete, setToDelete]: [
   Dispatch<SetStateAction<boolean>>
 ]) => {
   return {
-    onDelete: getDeleteSubmit({ setOpen: setToDelete }),
+    onSubmit: getDeleteSubmit({ setOpen: setToDelete }),
     openDelete: toDelete,
     setDelete: setToDelete,
   };
 };
 
+const makeEditProps = ([toEdit, setToEdit]: [
+  boolean,
+  Dispatch<SetStateAction<boolean>>
+]) => {
+  return {
+    ...getEditSubmit({ setOpen: setToEdit }),
+    form:{},
+    openEdit: toEdit,
+    setEdit: setToEdit,
+  };
+}
+
 export function useToolColumns(): ColumnDef<Tool>[] {
   const deleteProps = makeDeleteProps(useState<boolean>(false));
-
-  const onEdit = (data: Tool) => {};
+  const editProps = makeEditProps(useState<boolean>(false));
+  console.log(editProps)
 
   return [
     {
@@ -89,10 +101,12 @@ export function useToolColumns(): ColumnDef<Tool>[] {
     {
       id: "actions",
       cell: ({ row }) => {
+        const editForm = getEditForm(row.original);
+        editProps.form = editForm
         return (
           <ActionsRow
             rowData={row.original}
-            onEdit={onEdit}
+            editProps={editProps}
             deleteProps={deleteProps}
             title="Ferramentas"
           />

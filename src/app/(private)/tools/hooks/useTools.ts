@@ -121,8 +121,51 @@ export function getDeleteSubmit({ setOpen }: UseTools) {
   });
 
   const onSubmit = (value: Tool) => {
-    mutation.mutate(value.id);
+    mutation.mutate(String(value.id));
   };
 
   return onSubmit;
+}
+
+
+export function getEditSubmit({ setOpen }: UseTools) {
+  const toolsService = useMemo(() => new ToolsService(), []);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data: Tool) => toolsService.patch(String(data.id), JSON.stringify(data)),
+    onError: () => {
+      showErrorToast();
+    },
+    onSuccess: () => {
+      showSuccessToast();
+      queryClient.invalidateQueries({ queryKey: ["tools"] });
+      if (setOpen) setOpen(false);
+    },
+  });
+
+  const onSubmit = (values: Tool) => {
+    mutation.mutate(values);
+    setOpen(false);
+  };
+
+  return {onSubmit};
+}
+
+export function getEditForm(data:Tool){
+  const toolEditFormSchema = toolFormSchema.extend({
+    id: z.number()
+  });
+  const form = useForm<z.infer<typeof toolEditFormSchema>>({
+    resolver: zodResolver(toolEditFormSchema),
+    defaultValues: {
+      id: data.id,
+      name: data.name,
+      status: data.status as unknown as keyof typeof Status,
+      brand: { name: data.brand.name },
+      category: { name: data.category?.name ?? "" },
+    },
+  });
+
+  return form;
 }
