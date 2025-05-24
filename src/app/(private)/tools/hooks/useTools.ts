@@ -12,6 +12,7 @@ import {
   showSuccessToast,
   showErrorGeneral,
   showSuccesDelete,
+  showSuccessInsert,
 } from "../components/toaster";
 
 type UseTools = {
@@ -80,7 +81,7 @@ export function useTools({ setOpen }: UseTools) {
       showErrorToast();
     },
     onSuccess: () => {
-      showSuccessToast();
+      showSuccessInsert();
       queryClient.invalidateQueries({ queryKey: ["tools"] });
       if (setOpen) setOpen(false);
     },
