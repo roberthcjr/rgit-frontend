@@ -31,9 +31,9 @@ export default class ApiClient {
     return fetch(postRequest);
   }
 
-  put(url: string, body: string): Promise<Response> {
+  patch(url: string, body: string): Promise<Response> {
     const putRequest = new Request(`${this.api}/${url}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: this.headers,
       body,
     });

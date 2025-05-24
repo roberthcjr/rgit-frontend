@@ -1,11 +1,12 @@
-enum Status {
+export enum Status {
   AVAILABLE = "Disponível",
   UNAVAILABLE = "Indisponível",
   LENDED = "Emprestada",
 }
 
+//TODO: averiguar mudança de id de string para number
 export type Tool = {
-  id: string;
+  id: number;
   name: string;
   status: Status;
   brand: {
@@ -24,3 +25,9 @@ export const statusMap: Record<string, Status> = {
   UNAVAILABLE: Status.UNAVAILABLE,
   LENDED: Status.LENDED,
 };
+
+export const statusSelectOptions: { label: string; value: string }[] =
+  Object.entries(statusMap).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
