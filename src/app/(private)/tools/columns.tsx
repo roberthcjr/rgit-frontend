@@ -55,9 +55,7 @@ const makeEditProps = ([toEdit, setToEdit]: [
 }
 
 export function useToolColumns(): ColumnDef<Tool>[] {
-  const deleteProps = makeDeleteProps(useState<boolean>(false));
-  const editProps = makeEditProps(useState<boolean>(false));
-  console.log(editProps)
+  
 
   return [
     {
@@ -101,6 +99,8 @@ export function useToolColumns(): ColumnDef<Tool>[] {
     {
       id: "actions",
       cell: ({ row }) => {
+        const deleteProps = makeDeleteProps(useState<boolean>(false));
+        const editProps = makeEditProps(useState<boolean>(false));
         const editForm = getEditForm(row.original);
         editProps.form = editForm
         return (
