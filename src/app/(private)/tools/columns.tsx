@@ -9,6 +9,7 @@ import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { statusMap, Tool } from "./model";
 import { getDeleteSubmit, getEditForm, getEditSubmit } from "./hooks/useTools";
 import { set } from "zod";
+import { EditForm } from "./components/forms/edit-form";
 
 const statusIconMap: Record<string, ReactNode> = {
   AVAILABLE: (
@@ -47,8 +48,7 @@ const makeEditProps = ([toEdit, setToEdit]: [
   Dispatch<SetStateAction<boolean>>
 ]) => {
   return {
-    ...getEditSubmit({ setOpen: setToEdit }),
-    form:{},
+    onSubmit:getEditSubmit({ setOpen: setToEdit }),
     openEdit: toEdit,
     setEdit: setToEdit,
   };
@@ -101,14 +101,14 @@ export function useToolColumns(): ColumnDef<Tool>[] {
       cell: ({ row }) => {
         const deleteProps = makeDeleteProps(useState<boolean>(false));
         const editProps = makeEditProps(useState<boolean>(false));
-        const editForm = getEditForm(row.original);
-        editProps.form = editForm
+        const form = getEditForm(row.original);
         return (
           <ActionsRow
             rowData={row.original}
             editProps={editProps}
             deleteProps={deleteProps}
             title="Ferramentas"
+            editForm={<EditForm form={form} onSubmit={editProps.onSubmit} />}
           />
         );
       },

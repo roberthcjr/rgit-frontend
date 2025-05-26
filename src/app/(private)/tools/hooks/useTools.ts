@@ -149,12 +149,16 @@ export function getEditSubmit({ setOpen }: UseTools) {
     setOpen(false);
   };
 
-  return {onSubmit};
+  return onSubmit;
 }
 
 export function getEditForm(data:Tool){
   const toolEditFormSchema = toolFormSchema.extend({
     id: z.number()
+  })
+  .omit({
+    brand: true,
+    category: true,
   });
   const form = useForm<z.infer<typeof toolEditFormSchema>>({
     resolver: zodResolver(toolEditFormSchema),
@@ -162,8 +166,6 @@ export function getEditForm(data:Tool){
       id: data.id,
       name: data.name,
       status: data.status as unknown as keyof typeof Status,
-      brand: { name: data.brand.name },
-      category: { name: data.category?.name ?? "" },
     },
   });
 

@@ -26,13 +26,12 @@ type ActionsRowProps<T> = {
     onSubmit: (data: T) => void;
     openEdit: boolean;
     setEdit: Dispatch<SetStateAction<boolean>>;
-    form: any; // Form type, e.g., React Hook Form
   }; // Must match `rowData`'s type
   actions?: {
     label: string;
     onClick: (data: T) => void; // Also matches `rowData`
   }[];
-
+  editForm?: React.ReactNode;
   title: string;
 };
 
@@ -42,9 +41,10 @@ export function ActionsRow<T>({
   deleteProps,
   actions,
   title,
+  editForm
 }: ActionsRowProps<T>) {
   const { onSubmit:onDelete, openDelete, setDelete } = deleteProps;
-  const { form:editForm, onSubmit:onEdit, openEdit, setEdit } = editProps;
+  const { openEdit, setEdit } = editProps;
 
   
   return (
@@ -91,10 +91,7 @@ export function ActionsRow<T>({
         onOpenChange={setEdit}
         title={`Editar ${title}`}
       >
-        <ToolForm
-          form={editForm}
-          onSubmit={onEdit}
-        />
+        {editForm}
       </CustomDialog>
     </>
   );
