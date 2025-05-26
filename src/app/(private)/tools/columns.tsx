@@ -29,9 +29,6 @@ const statusIconMap: Record<string, ReactNode> = {
   ),
 };
 
-// Quando definir um columns e desejar ter ações,
-// escrever o métodos onEdit e onDelete
-
 const makeDeleteProps = ([toDelete, setToDelete]: [
   boolean,
   Dispatch<SetStateAction<boolean>>
@@ -99,6 +96,7 @@ export function useToolColumns(): ColumnDef<Tool>[] {
     {
       id: "actions",
       cell: ({ row }) => {
+        //TODO: Refactor this to use a custom hook
         const deleteProps = makeDeleteProps(useState<boolean>(false));
         const editProps = makeEditProps(useState<boolean>(false));
         const form = getEditForm(row.original);
