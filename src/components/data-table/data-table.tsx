@@ -28,11 +28,13 @@ import { Input } from "../ui/input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isPeding?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isPeding = false,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -110,7 +112,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {isPeding? "Carregando..." :"Sem Resultados"}
                 </TableCell>
               </TableRow>
             )}

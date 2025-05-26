@@ -31,10 +31,17 @@ export default class ApiClient {
     return fetch(postRequest);
   }
 
-  put(url: string, body: string): Promise<Response> {
+  patch(
+    url: string, 
+    body: string, 
+    headers?: { "Content-Type": string }
+  ): Promise<Response> {
+    const customHeaders = this.headers;
+    if (headers)
+      customHeaders.set(Object.keys(headers)[0], Object.values(headers)[0]);
     const putRequest = new Request(`${this.api}/${url}`, {
-      method: "PUT",
-      headers: this.headers,
+      method: "PATCH",
+      headers: customHeaders,
       body,
     });
     return fetch(putRequest);
