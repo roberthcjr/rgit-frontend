@@ -36,7 +36,9 @@ export default class ToolsService extends ApiClient {
   }
 
   patch(id: string, body: string): Promise<Response> {
-    return super.patch(`${this.endpoint}/${id}`, body);
+    return super.patch(`${this.endpoint}/${id}`, body, {
+      "Content-Type": "application/json",
+    });
   }
 
   delete(id: string): Promise<Response> {
