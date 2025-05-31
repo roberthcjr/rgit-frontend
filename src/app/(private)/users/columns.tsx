@@ -3,9 +3,16 @@
 import { ActionsRow } from "@/components/data-table/actions-row";
 import { DataTableColumnHeader } from "@/components/data-table/header-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "./types/user-type";
+import {  UserType } from "./types/user-type";
 
-export const columns: ColumnDef<User>[] = [
+function deleteAction(user: UserType) {
+  console.log(user);
+}
+function editAction(user: UserType) {
+  console.log(user);
+}
+
+export const columns: ColumnDef<UserType>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -38,6 +45,6 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <ActionsRow payment={row} />,
+    cell: ({ row }) => <ActionsRow<UserType> args={row.original} editAction={editAction} deleteAction={deleteAction} />,
   },
 ];

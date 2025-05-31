@@ -9,31 +9,36 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-export function ActionsRow({
-  payment,
-}: {
-  payment: {
-    id: string;
-  };
-}) {
+type ActionsProps<T> = {
+  editAction: (args: T)=>void,
+  deleteAction: (args: T)=>void,
+  args: T
+}
+
+export function ActionsRow<T>({editAction, deleteAction, args}: ActionsProps<T>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
+        <Button variant="ghost" className="cursor-pointer h-8 w-8 p-0">
+          <span className="sr-only">Abrir Menu</span>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Ações</DropdownMenuLabel>
+        <DropdownMenuSeparator/>
         <DropdownMenuItem
-          onClick={() => navigator.clipboard.writeText(payment.id)}
+          className="cursor-pointer"
+          onClick={() => editAction(args)}
         >
-          Copy payment ID
+          Editar
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>View customer</DropdownMenuItem>
-        <DropdownMenuItem>View payment details</DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => deleteAction(args)}
+        >
+          Deletar
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
