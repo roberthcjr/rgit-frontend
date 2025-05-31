@@ -37,7 +37,7 @@ function Users() {
     queryFn: () => userService.getAll(),
   });
 
-  const mutation = useMutation({
+  const insertUserMutation = useMutation({
     mutationFn: (data: UserType) => userService.insertUser(data),
     onError: () => {
       showErrorToast();
@@ -61,15 +61,15 @@ function Users() {
     },
   });
 
-  const onSubmit = (values: UserType) => {
-      mutation.mutate(values);
+  const insertUserFormSubmit = (values: UserType) => {
+      insertUserMutation.mutate(values);
     };
   return (
     <>
       <div className="container">
         <UsersTable data={query.data ?? []} />
         <div className="flex items-end">
-          <InsertUserDialog form={form} open={open} setOpen={setOpen} onSubmit={onSubmit} />
+          <InsertUserDialog form={form} open={open} setOpen={setOpen} onSubmit={insertUserFormSubmit} />
         </div>
       </div>
     </>
