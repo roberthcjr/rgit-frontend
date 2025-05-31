@@ -10,12 +10,16 @@ import {
 } from "../ui/dropdown-menu";
 
 type ActionsProps<T> = {
-  editAction: (args: T)=>void,
-  deleteAction: (args: T)=>void,
-  args: T
-}
+  editAction: (args: T) => void;
+  deleteAction: (args: T) => void;
+  args: T;
+};
 
-export function ActionsRow<T>({editAction, deleteAction, args}: ActionsProps<T>) {
+export function ActionsRow<T>({
+  editAction,
+  deleteAction,
+  args,
+}: ActionsProps<T>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,7 +30,7 @@ export function ActionsRow<T>({editAction, deleteAction, args}: ActionsProps<T>)
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Ações</DropdownMenuLabel>
-        <DropdownMenuSeparator/>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => editAction(args)}

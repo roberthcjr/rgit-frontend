@@ -1,10 +1,7 @@
 import { CustomDialog } from "@/components/custom-dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import {
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { Dispatch, SetStateAction } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { PlusCircle } from "lucide-react";
 import InsertUserFormField from "./form-field-user";
@@ -17,7 +14,12 @@ interface InsertUserProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function InsertUserDialog({ form, open, setOpen, onSubmit }: InsertUserProps) {
+export function InsertUserDialog({
+  form,
+  open,
+  setOpen,
+  onSubmit,
+}: InsertUserProps) {
   const insertFormFields = {
     name: "Nome",
     surname: "Sobrenome",
@@ -37,39 +39,38 @@ export function InsertUserDialog({ form, open, setOpen, onSubmit }: InsertUserPr
       }
       title="Inserir Usuário"
     >
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 mt-4">
-            {(Object.keys(insertFormFields) as Array<keyof UserType>).map(
-              (key) => {
-                return (
-                  <InsertUserFormField
-                    formControl={form.control}
-                    fieldName={key}
-                    label={insertFormFields[key]}
-                    key={key}
-                  />
-                );
-              },
-            )}
-            <div className="flex justify-between">
-              <Button
-                type="submit"
-                className="cursor-pointer"
-              >
-                Inserir
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="cursor-pointer"
-                onClick={() => setOpen(false)}
-              >
-                Cancelar
-              </Button>
-            </div>
-          </form>
-        </Form>
-
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-3 mt-4"
+        >
+          {(Object.keys(insertFormFields) as Array<keyof UserType>).map(
+            (key) => {
+              return (
+                <InsertUserFormField
+                  formControl={form.control}
+                  fieldName={key}
+                  label={insertFormFields[key]}
+                  key={key}
+                />
+              );
+            },
+          )}
+          <div className="flex justify-between">
+            <Button type="submit" className="cursor-pointer">
+              Inserir
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
+              Cancelar
+            </Button>
+          </div>
+        </form>
+      </Form>
     </CustomDialog>
   );
 }
