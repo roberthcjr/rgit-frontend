@@ -1,6 +1,5 @@
 "use client";
 
-import { ActionsRow } from "@/components/data-table/actions-row";
 import { DataTableColumnHeader } from "@/components/data-table/header-table";
 import { SimpleTooltip } from "@/components/simple-tooltip";
 import { ColumnDef } from "@tanstack/react-table";
@@ -67,6 +66,5 @@ export const columns: ColumnDef<Tool>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <ActionsRow payment={row} />,
   },
 ];

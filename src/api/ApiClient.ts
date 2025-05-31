@@ -42,6 +42,25 @@ export default class ApiClient {
     return fetch(putRequest);
   }
 
+  patch(
+    url: string,
+    body: string | FormData,
+    headers?: { "Content-Type": string },
+  ): Promise<Response> {
+    const customHeaders = this.headers;
+    if (headers)
+      for (const [key, value] of Object.entries(headers)) {
+        customHeaders.set(key, value);
+      }
+    const patchRequest = new Request(`${this.api}/${url}`, {
+      method: "PATCH",
+      headers: customHeaders,
+      body,
+    });
+    console.log(patchRequest);
+    return fetch(patchRequest);
+  }
+
   delete(url: string): Promise<Response> {
     const deleteRequest = new Request(`${this.api}/${url}`, {
       method: "DELETE",

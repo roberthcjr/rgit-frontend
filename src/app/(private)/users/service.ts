@@ -1,5 +1,5 @@
 import ApiClient from "@/api/ApiClient";
-import { UserType } from "./types/user-type";
+import { UserType, type ExtendedUserType } from "./types/user-type";
 
 export default class UsersService extends ApiClient {
   endpoint: string = "users";
@@ -9,9 +9,14 @@ export default class UsersService extends ApiClient {
     return response.json();
   }
 
-  async insertUser(
-    { name, surname, username, password, job, section }: UserType,
-  ): Promise<void | Error> {
+  async insertUser({
+    name,
+    surname,
+    username,
+    password,
+    job,
+    section,
+  }: UserType): Promise<void | Error> {
     const response: Response = await super.post(
       this.endpoint,
       JSON.stringify({
@@ -22,7 +27,32 @@ export default class UsersService extends ApiClient {
         job,
         section,
       }),
-      { "Content-Type": "application/json"},
+      { "Content-Type": "application/json" },
+    );
+
+    if (!response.ok) throw new Error("Houve um erro na inserção");
+  }
+
+  async updateUser({
+    id,
+    name,
+    surname,
+    username,
+    password,
+    job,
+    section,
+  }: ExtendedUserType): Promise<void | Error> {
+    const response: Response = await super.patch(
+      `${this.endpoint}/${id}`,
+      JSON.stringify({
+        name,
+        surname,
+        username,
+        password,
+        job,
+        section,
+      }),
+      { "Content-Type": "application/json" },
     );
 
     if (!response.ok) throw new Error("Houve um erro na inserção");

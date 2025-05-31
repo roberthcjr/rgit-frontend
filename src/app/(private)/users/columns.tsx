@@ -1,16 +1,8 @@
 "use client";
 
-import { ActionsRow } from "@/components/data-table/actions-row";
 import { DataTableColumnHeader } from "@/components/data-table/header-table";
 import { ColumnDef } from "@tanstack/react-table";
-import {  UserType } from "./types/user-type";
-
-function deleteAction(user: UserType) {
-  console.log(user);
-}
-function editAction(user: UserType) {
-  console.log(user);
-}
+import { UserType } from "./types/user-type";
 
 export const columns: ColumnDef<UserType>[] = [
   {
@@ -45,6 +37,5 @@ export const columns: ColumnDef<UserType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <ActionsRow<UserType> args={row.original} editAction={editAction} deleteAction={deleteAction} />,
   },
 ];
