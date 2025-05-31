@@ -46,7 +46,6 @@ export function InsertUserDialog({ form, open, setOpen, onSubmit }: InsertUserPr
                     formControl={form.control}
                     fieldName={key}
                     label={insertFormFields[key]}
-                    // state={state}
                     key={key}
                   />
                 );
@@ -56,7 +55,6 @@ export function InsertUserDialog({ form, open, setOpen, onSubmit }: InsertUserPr
               <Button
                 type="submit"
                 className="cursor-pointer"
-                // disabled={isPending}
               >
                 Inserir
               </Button>
@@ -64,7 +62,6 @@ export function InsertUserDialog({ form, open, setOpen, onSubmit }: InsertUserPr
                 type="button"
                 variant="outline"
                 className="cursor-pointer"
-                // disabled={isPending}
                 onClick={() => setOpen(false)}
               >
                 Cancelar
