@@ -11,7 +11,6 @@ export default class UsersService extends ApiClient {
 
   async insertUser(
     { name, surname, username, password, job, section }: UserType,
-    token?: string,
   ): Promise<void | Error> {
     const response: Response = await super.post(
       this.endpoint,
@@ -23,7 +22,7 @@ export default class UsersService extends ApiClient {
         job,
         section,
       }),
-      { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      { "Content-Type": "application/json"},
     );
 
     if (!response.ok) throw new Error("Houve um erro na inserção");

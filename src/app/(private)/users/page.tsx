@@ -2,6 +2,7 @@
 import {
   QueryClient,
   QueryClientProvider,
+  useMutation,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { UserType } from "./types/user-type";
 import { UserSchema } from "./schemas/user-input-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { showErrorToast, showSuccessToast } from "./components/toaster";
 
 const queryClient = new QueryClient();
 
@@ -27,12 +29,24 @@ export default function Page() {
 
 function Users() {
   const [open, setOpen] = useState(false);
-  // const queryClient = useQueryClient();
-  const toolsService = useMemo(() => new UsersService(), []);
+  const queryClient = useQueryClient();
+  const userService = useMemo(() => new UsersService(), []);
 
   const query = useQuery({
-    queryKey: ["tools"],
-    queryFn: () => toolsService.getAll(),
+    queryKey: ["users"],
+    queryFn: () => userService.getAll(),
+  });
+
+  const mutation = useMutation({
+    mutationFn: (data: UserType) => userService.insertUser(data),
+    onError: () => {
+      showErrorToast();
+    },
+    onSuccess: () => {
+      showSuccessToast();
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      if (setOpen) setOpen(false);
+    },
   });
 
   const form = useForm<UserType>({
@@ -46,12 +60,16 @@ function Users() {
       section: "",
     },
   });
+
+  const onSubmit = (values: UserType) => {
+      mutation.mutate(values);
+    };
   return (
     <>
       <div className="container">
         <UsersTable data={query.data ?? []} />
         <div className="flex items-end">
-          <InsertUserDialog form={form} open={open} setOpen={setOpen} />
+          <InsertUserDialog form={form} open={open} setOpen={setOpen} onSubmit={onSubmit} />
         </div>
       </div>
     </>
