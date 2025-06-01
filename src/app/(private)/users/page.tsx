@@ -6,7 +6,6 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import * as crypto from "node:crypto";
 import { useEffect, useMemo, useState } from "react";
 import UsersService from "./service";
 import { UsersTable } from "./components/users-table";
@@ -50,13 +49,27 @@ function Users() {
     },
   });
 
+  const generatePassword = (length: number) => {
+    const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const integers = "0123456789";
+    const especialCharacters = "!@#$%^&*_-=+";
+    const possibilities = [letters, integers, especialCharacters];
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const possibility =
+        possibilities[Math.floor(Math.random() * possibilities.length)];
+      password += possibility[Math.floor(Math.random() * possibility.length)];
+    }
+    return password;
+  };
+
   const form = useForm<UserType>({
     resolver: zodResolver(UserSchema),
     defaultValues: {
       name: "",
       surname: "",
       username: "",
-      password: crypto.randomBytes(10).toString("hex"),
+      password: generatePassword(8),
       job: "",
       section: "",
     },
