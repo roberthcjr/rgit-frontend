@@ -11,22 +11,24 @@ import { DialogProps } from "@radix-ui/react-dialog";
 
 interface CustomDialogProps extends DialogProps {
   children: ReactNode;
-  trigger: ReactNode;
-  title: string;  
+  trigger?: ReactNode;
+  title: string;
 }
 
-export function CustomDialog({children, trigger, title, open, onOpenChange}: CustomDialogProps) {
+export function CustomDialog({
+  children,
+  trigger,
+  title,
+  open,
+  onOpenChange,
+}: CustomDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        {trigger}
-      </DialogTrigger>
-      <DialogContent className="flex justify-center">
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogContent className="flex justify-center w-xs">
         <DialogHeader className="flex items-center justify-center">
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription asChild>
-            {children}
-          </DialogDescription>
+          <DialogDescription asChild>{children}</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
