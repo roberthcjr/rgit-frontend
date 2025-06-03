@@ -51,17 +51,18 @@ export function ActionsRow<T>({
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
+          <Button variant="ghost" className="cursor-pointer h-8 w-8 p-0">
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => setEdit(true)}>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="cursor-pointer" onClick={() => setEdit(true)}>
             Editar
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setDelete(true)}>
+          <DropdownMenuItem className="cursor-pointer" onClick={() => setDelete(true)}>
             Deletar
           </DropdownMenuItem>
           {!!actions && actions.length > 0 && (
