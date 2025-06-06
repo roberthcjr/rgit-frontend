@@ -1,5 +1,6 @@
 import ApiClient from "@/api/ApiClient";
 import { Tool } from "./model";
+import type { EditToolType, InsertToolType } from "./types/insert-tool.type";
 
 export default class ToolsService extends ApiClient {
   endpoint: string = "tools";
@@ -13,6 +14,37 @@ export default class ToolsService extends ApiClient {
       `${this.endpoint}?${options?.query}`,
     );
     return response.json();
+  }
+
+  async insertTool({
+    name,
+    brand,
+    category,
+  }: InsertToolType): Promise<void | Error> {
+    const response: Response = await super.post(
+      this.endpoint,
+      JSON.stringify({
+        name,
+        brand,
+        category,
+      }),
+      { "Content-Type": "application/json" },
+    );
+
+    if (!response.ok) throw new Error("Houve um erro na inserção");
+  }
+
+  async updateTool({ id, name, status }: EditToolType): Promise<void | Error> {
+    const response: Response = await super.patch(
+      `${this.endpoint}/${id}`,
+      JSON.stringify({
+        name,
+        status,
+      }),
+      { "Content-Type": "application/json" },
+    );
+
+    if (!response.ok) throw new Error("Houve um erro na atualização");
   }
 
   get(id: string): Promise<Response> {
