@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { PlusCircle } from "lucide-react";
 import { LendType } from "../types/lend-type";
@@ -60,11 +60,15 @@ export function CreateLendDialog({
                 <FormLabel>Funcionário</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={users.map((user) => ({
-                      label: user.name,
-                      change: user.id,
-                    }))}
-                    placeholder="Escolha um funcionário..."
+                    suggestions={useMemo(
+                      () =>
+                        users.map((user) => ({
+                          label: user.name,
+                          change: user.id,
+                        })),
+                      [users],
+                    )}
+                    placeholder={"Escolha um funcionário..."}
                     value={field.value || ""}
                     onChange={field.onChange}
                   />
@@ -80,11 +84,15 @@ export function CreateLendDialog({
                 <FormLabel>Ferramenta</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={tools.map((tool) => ({
-                      label: tool.name,
-                      change: tool.id,
-                    }))}
-                    placeholder="Escolha uma ferramenta..."
+                    suggestions={useMemo(
+                      () =>
+                        tools.map((tool) => ({
+                          label: tool.name,
+                          change: tool.id,
+                        })),
+                      [tools],
+                    )}
+                    placeholder={"Escolha uma ferramenta..."}
                     value={field.value || ""}
                     onChange={field.onChange}
                   />
