@@ -70,7 +70,7 @@ function Tools() {
     resolver: zodResolver(EditToolSchema),
     defaultValues: {
       name: "",
-      status: Status.AVAILABLE,
+      status: "AVAILABLE",
       brand: {
         name: "",
       },
