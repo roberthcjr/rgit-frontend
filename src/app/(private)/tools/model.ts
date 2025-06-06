@@ -1,3 +1,5 @@
+import type { StatusEnum } from "./types/edit-tool.type";
+
 export enum Status {
   AVAILABLE = "Disponível",
   UNAVAILABLE = "Indisponível",
@@ -7,7 +9,7 @@ export enum Status {
 export type Tool = {
   id: number;
   name: string;
-  status: Status;
+  status: StatusEnum;
   brand: {
     id: string;
     name: string;
