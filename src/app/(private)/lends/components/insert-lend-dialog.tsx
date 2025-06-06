@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { PlusCircle } from "lucide-react";
 import { LendType } from "../types/lend-type";
@@ -36,6 +36,22 @@ export function CreateLendDialog({
   tools,
   users,
 }: CreateLendProps) {
+  const toolSuggestions = useMemo(
+    () =>
+      tools.map((tool) => ({
+        label: tool.name,
+        change: tool.id,
+      })),
+    [tools],
+  );
+  const userSuggestions = useMemo(
+    () =>
+      users.map((user) => ({
+        label: user.name,
+        change: user.id,
+      })),
+    [users],
+  );
   return (
     <CustomDialog
       open={open}
@@ -60,11 +76,8 @@ export function CreateLendDialog({
                 <FormLabel>Funcionário</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={users.map((user) => ({
-                      label: user.name,
-                      change: user.id,
-                    }))}
-                    placeholder="Escolha um funcionário..."
+                    suggestions={userSuggestions}
+                    placeholder={"Escolha um funcionário..."}
                     value={field.value || ""}
                     onChange={field.onChange}
                   />
@@ -80,11 +93,8 @@ export function CreateLendDialog({
                 <FormLabel>Ferramenta</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={tools.map((tool) => ({
-                      label: tool.name,
-                      change: tool.id,
-                    }))}
-                    placeholder="Escolha uma ferramenta..."
+                    suggestions={toolSuggestions}
+                    placeholder={"Escolha uma ferramenta..."}
                     value={field.value || ""}
                     onChange={field.onChange}
                   />

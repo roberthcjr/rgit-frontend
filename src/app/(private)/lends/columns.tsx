@@ -24,12 +24,12 @@ export const columns: ColumnDef<ExtendedLendType>[] = [
     ),
   },
   {
-    accessorKey: "limitDate",
+    accessorKey: "limit_date",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Entrega" />
     ),
     cell: ({ row }) => {
-      const dateFormatted = new Date(row.getValue("limitDate"));
+      const dateFormatted = new Date(row.getValue("limit_date"));
       return dateFormatted.toLocaleDateString("pt-BR");
     },
   },

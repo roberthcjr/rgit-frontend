@@ -44,12 +44,12 @@ function Lends() {
 
   const userQuery = useQuery({
     queryKey: ["users"],
-    queryFn: () => userService.getAll(),
+    queryFn: () => userService.getAllWithoutLends(),
   });
 
   const toolQuery = useQuery({
     queryKey: ["tools"],
-    queryFn: () => toolService.getAll(),
+    queryFn: () => toolService.getAllAvailable(),
   });
 
   const insertLendMutation = useMutation({

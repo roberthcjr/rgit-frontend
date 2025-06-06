@@ -13,9 +13,13 @@ export default class LendsService extends ApiClient {
     const response: Response = await super.post(
       this.endpoint,
       JSON.stringify({
-        limitDate,
-        tool_id: tool.id,
-        user_id: user.id,
+        limit_date: limitDate,
+        tool: {
+          id: tool.id,
+        },
+        user: {
+          id: user.id,
+        },
       }),
       { "Content-Type": "application/json" },
     );
@@ -24,13 +28,7 @@ export default class LendsService extends ApiClient {
   }
 
   async close(id: string): Promise<void | Error> {
-    const response: Response = await super.post(
-      `${this.endpoint}/close`,
-      JSON.stringify({
-        id,
-      }),
-      { "Content-Type": "application/json" },
-    );
+    const response: Response = await super.delete(`${this.endpoint}/${id}`);
 
     if (!response.ok)
       throw new Error("Houve um erro no fechamento do empréstimo");
