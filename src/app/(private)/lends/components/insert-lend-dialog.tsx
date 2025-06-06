@@ -36,6 +36,22 @@ export function CreateLendDialog({
   tools,
   users,
 }: CreateLendProps) {
+  const toolSuggestions = useMemo(
+    () =>
+      tools.map((tool) => ({
+        label: tool.name,
+        change: tool.id,
+      })),
+    [tools],
+  );
+  const userSuggestions = useMemo(
+    () =>
+      users.map((user) => ({
+        label: user.name,
+        change: user.id,
+      })),
+    [users],
+  );
   return (
     <CustomDialog
       open={open}
@@ -60,14 +76,7 @@ export function CreateLendDialog({
                 <FormLabel>Funcionário</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={useMemo(
-                      () =>
-                        users.map((user) => ({
-                          label: user.name,
-                          change: user.id,
-                        })),
-                      [users],
-                    )}
+                    suggestions={userSuggestions}
                     placeholder={"Escolha um funcionário..."}
                     value={field.value || ""}
                     onChange={field.onChange}
@@ -84,14 +93,7 @@ export function CreateLendDialog({
                 <FormLabel>Ferramenta</FormLabel>
                 <FormControl>
                   <AutocompleteInput
-                    suggestions={useMemo(
-                      () =>
-                        tools.map((tool) => ({
-                          label: tool.name,
-                          change: tool.id,
-                        })),
-                      [tools],
-                    )}
+                    suggestions={toolSuggestions}
                     placeholder={"Escolha uma ferramenta..."}
                     value={field.value || ""}
                     onChange={field.onChange}

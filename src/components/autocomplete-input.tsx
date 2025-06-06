@@ -75,7 +75,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
       setSelectedValue(value);
       setInputValue(match?.label || "");
     }
-  }, [value, suggestions]);
+  }, [value, suggestions, isUserTyping, selectedValue]);
 
   useEffect(() => {
     if (inputValue && isUserTyping) {
