@@ -69,16 +69,14 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  // Sincroniza valor externo
   useEffect(() => {
-    if (value !== selectedValue) {
-      setSelectedValue(value);
+    if (!isUserTyping && value !== selectedValue) {
       const match = suggestions.find((s) => s.change === value);
+      setSelectedValue(value);
       setInputValue(match?.label || "");
     }
-  }, [value, suggestions, selectedValue]);
+  }, [value, suggestions]);
 
-  // Filtra sugestões conforme input
   useEffect(() => {
     if (inputValue && isUserTyping) {
       const filtered = suggestions
@@ -100,10 +98,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
     const newLabel = e.target.value;
     setInputValue(newLabel);
     setIsUserTyping(true);
-    setSelectedValue(undefined); // resetar valor selecionado
+    setSelectedValue(undefined);
 
     if (onChange) {
-      onChange(""); // ou null/undefined
+      onChange("");
     }
   };
 
