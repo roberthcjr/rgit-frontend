@@ -61,7 +61,7 @@ export default class ApiClient {
     return fetch(patchRequest);
   }
 
-  delete(url: string): Promise<Response> {
+  delete(url: string | number): Promise<Response> {
     const deleteRequest = new Request(`${this.api}/${url}`, {
       method: "DELETE",
       headers: this.headers,

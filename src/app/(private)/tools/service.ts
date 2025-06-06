@@ -41,7 +41,7 @@ export default class ToolsService extends ApiClient {
     return super.put(`${this.endpoint}/${id}`, body);
   }
 
-  delete(id: string): Promise<Response> {
+  delete(id: number): Promise<Response> {
     return super.delete(`${this.endpoint}/${id}`);
   }
 }
