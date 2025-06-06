@@ -4,8 +4,14 @@ import { UserType, type ExtendedUserType } from "./types/user-type";
 export default class UsersService extends ApiClient {
   endpoint: string = "users";
 
-  async getAll(): Promise<ExtendedUserType[]> {
-    const response: Response = await super.get(this.endpoint);
+  async getAllWithoutLends(): Promise<ExtendedUserType[]> {
+    return await this.getAll({ query: "hasLends=false" });
+  }
+
+  async getAll(options?: { query: string }): Promise<ExtendedUserType[]> {
+    const response: Response = await super.get(
+      `${this.endpoint}?${options?.query}`,
+    );
     return response.json();
   }
 

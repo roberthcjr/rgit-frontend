@@ -44,7 +44,7 @@ function Lends() {
 
   const userQuery = useQuery({
     queryKey: ["users"],
-    queryFn: () => userService.getAll(),
+    queryFn: () => userService.getAllWithoutLends(),
   });
 
   const toolQuery = useQuery({
