@@ -1,13 +1,15 @@
-enum Status {
+import type { StatusEnum } from "./types/edit-tool.type";
+
+export enum Status {
   AVAILABLE = "Disponível",
   UNAVAILABLE = "Indisponível",
   LENDED = "Emprestada",
 }
 
 export type Tool = {
-  id: string;
+  id: number;
   name: string;
-  status: Status;
+  status: StatusEnum;
   brand: {
     id: string;
     name: string;
