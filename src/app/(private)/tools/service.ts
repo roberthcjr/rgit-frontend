@@ -4,8 +4,14 @@ import { Tool } from "./model";
 export default class ToolsService extends ApiClient {
   endpoint: string = "tools";
 
-  async getAll(): Promise<Tool[]> {
-    const response: Response = await super.get(this.endpoint);
+  async getAllAvailable(): Promise<Tool[]> {
+    return await this.getAll({ query: "status=AVAILABLE" });
+  }
+
+  async getAll(options?: { query: string }): Promise<Tool[]> {
+    const response: Response = await super.get(
+      `${this.endpoint}?${options?.query}`,
+    );
     return response.json();
   }
 
