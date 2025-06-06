@@ -17,7 +17,6 @@ import type { EditToolType, InsertToolType } from "./types/insert-tool.type";
 import { DeleteToolDialog } from "./components/delete-tool-dialog";
 import { InsertToolDialog } from "./components/insert-tool-dialog";
 import { EditToolDialog } from "./components/edit-tool-dialog";
-import { Status } from "./model";
 import { EditToolSchema } from "./schemas/edit-tool.schema";
 
 const queryClient = new QueryClient();
