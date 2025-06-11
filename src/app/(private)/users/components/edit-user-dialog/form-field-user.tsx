@@ -28,7 +28,7 @@ export default function InsertUserFormField({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              placeholder={`Insira um ${label.toLowerCase()}...`}
+              placeholder={`Edite a ${label.toLowerCase()}...`}
               {...field}
             />
           </FormControl>
