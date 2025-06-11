@@ -27,7 +27,10 @@ export default function InsertUserFormField({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={fieldName} {...field} />
+            <Input
+              placeholder={`Edite a ${label.toLowerCase()}...`}
+              {...field}
+            />
           </FormControl>
         </FormItem>
       )}

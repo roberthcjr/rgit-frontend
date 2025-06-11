@@ -96,7 +96,14 @@ function Users() {
 
   useEffect(() => {
     if (userToEdit) {
-      editForm.reset(userToEdit);
+      editForm.reset({
+        name: userToEdit.name,
+        surname: userToEdit.surname,
+        username: userToEdit.username,
+        password: "",
+        job: userToEdit.job,
+        section: userToEdit.section,
+      });
     }
   }, [userToEdit, editForm]);
 

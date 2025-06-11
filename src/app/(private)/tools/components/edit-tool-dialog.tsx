@@ -34,7 +34,7 @@ export function EditToolDialog({
   onSubmit,
 }: EditToolProps) {
   return (
-    <CustomDialog open={open} onOpenChange={setOpen} title="Editar Usuário">
+    <CustomDialog open={open} onOpenChange={setOpen} title="Editar Ferramenta">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
