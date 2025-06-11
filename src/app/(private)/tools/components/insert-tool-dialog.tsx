@@ -35,7 +35,7 @@ export function InsertToolDialog({
           Inserir <PlusCircle />
         </Button>
       }
-      title="Inserir Usuário"
+      title="Inserir Ferramenta"
     >
       <Form {...form}>
         <form
