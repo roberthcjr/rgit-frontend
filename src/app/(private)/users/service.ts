@@ -47,21 +47,29 @@ export default class UsersService extends ApiClient {
     password,
     job,
     section,
-  }: ExtendedUserType): Promise<void | Error> {
-    const response: Response = await super.patch(
+  }: ExtendedUserType): Promise<void> {
+    const payload: Record<string, unknown> = {
+      name,
+      surname,
+      username,
+      job,
+      section,
+    };
+
+    if (password) payload.password = password;
+
+    const response = await super.patch(
       `${this.endpoint}/${id}`,
-      JSON.stringify({
-        name,
-        surname,
-        username,
-        password,
-        job,
-        section,
-      }),
+      JSON.stringify(payload),
       { "Content-Type": "application/json" },
     );
 
-    if (!response.ok) throw new Error("Houve um erro na inserção");
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      throw new Error(
+        `Houve um erro na inserção: ${response.status} ${errorBody}`,
+      );
+    }
   }
 
   get(id: string): Promise<Response> {
