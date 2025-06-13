@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const MB_RATIO = 1024 * 1024;
 const MAX_FILE_SIZE = 5 * MB_RATIO;
-const ACCEPTED_MIME_TYPES = ["text/csv"];
+const ACCEPTED_MIME_TYPES = ["text/tab-separated-values"];
 
 export const csvSchema = z.object({
   csv: z
