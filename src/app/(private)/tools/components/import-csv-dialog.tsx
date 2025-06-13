@@ -33,10 +33,10 @@ export function ImportCsvDialog({
       onOpenChange={setOpen}
       trigger={
         <Button className="cursor-pointer m-2" variant="outline">
-          Importar por CSV
+          Importar por TSV
         </Button>
       }
-      title="Importar CSV"
+      title="Importar TSV"
     >
       <Form {...form}>
         <form
@@ -52,7 +52,7 @@ export function ImportCsvDialog({
                   <Input
                     className="p-20"
                     type="file"
-                    accept="text/csv"
+                    accept="text/tab-separated-values"
                     onChange={(input) => {
                       const file = input.target.files?.[0];
                       if (file) field.onChange(file);
@@ -60,7 +60,7 @@ export function ImportCsvDialog({
                   />
                 </FormControl>
                 <FormDescription>
-                  Envie um arquivo csv para inserir ferramentas em massa.
+                  Envie um arquivo tsv para inserir ferramentas em massa.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
