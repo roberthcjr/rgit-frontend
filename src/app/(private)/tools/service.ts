@@ -55,15 +55,15 @@ export default class ToolsService extends ApiClient {
     return super.post(this.endpoint, body);
   }
 
-  async postCSV(file: File) {
+  async importTSV(file: File) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await super.post(`${this.endpoint}/importCSV`, formData);
+    const res = await super.post(`${this.endpoint}/import`, formData);
 
     if (!res.ok) {
       const errorData = await res.json();
-      throw new Error(errorData.message || "Erro ao importar CSV");
+      throw new Error(errorData.message || "Erro ao importar TSV");
     }
 
     return res.json();

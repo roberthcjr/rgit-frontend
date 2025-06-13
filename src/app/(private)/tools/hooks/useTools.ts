@@ -21,7 +21,7 @@ export function useTools({ setOpen }: UseTools) {
   });
 
   const mutation = useMutation({
-    mutationFn: (data: File) => toolsService.postCSV(data),
+    mutationFn: (data: File) => toolsService.importTSV(data),
     onError: () => {
       showErrorToast();
     },
