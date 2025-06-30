@@ -4,7 +4,8 @@ import type { StatusEnum } from "./edit-tool.type";
 
 export type InsertToolType = z.infer<typeof InsertToolSchema>;
 
-export type EditToolType = InsertToolType & {
+export type EditToolType = {
   id: number;
+  name: string;
   status: StatusEnum;
 };

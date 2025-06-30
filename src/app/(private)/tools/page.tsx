@@ -1,9 +1,5 @@
 "use client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useTools } from "./hooks/useTools";
 import { ToolsTable } from "./components/tools-table";
 import { ImportCsvDialog } from "./components/import-csv-dialog";
@@ -19,19 +15,13 @@ import { InsertToolDialog } from "./components/insert-tool-dialog";
 import { EditToolDialog } from "./components/edit-tool-dialog";
 import { EditToolSchema } from "./schemas/edit-tool.schema";
 
-const queryClient = new QueryClient();
-
 export default function Page() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Tools />
-    </QueryClientProvider>
-  );
+  return <Tools />;
 }
 
 function Tools() {
   const [open, setOpen] = useState(false);
-  const { query, form, onSubmit } = useTools({ setOpen });
+  const { queryClient, query, form, onSubmit } = useTools({ setOpen });
   const toolService = useMemo(() => new ToolsService(), []);
 
   const [openInsert, setOpenInsert] = useState(false);
@@ -70,12 +60,6 @@ function Tools() {
     defaultValues: {
       name: "",
       status: "AVAILABLE",
-      brand: {
-        name: "",
-      },
-      category: {
-        name: "",
-      },
     },
   });
 
@@ -88,7 +72,7 @@ function Tools() {
   const editToolMutation = useMutation({
     mutationFn: (data: EditToolType) => toolService.updateTool(data),
     onSuccess: () => {
-      showSuccessToast("Ferramenta editado com sucesso");
+      showSuccessToast("Ferramenta editada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["tools"] });
       setEditOpen(false);
       setToolToEdit(null);

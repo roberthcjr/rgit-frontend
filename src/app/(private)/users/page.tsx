@@ -1,11 +1,5 @@
 "use client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import UsersService from "./service";
 import { UsersTable } from "./components/users-table";
@@ -18,14 +12,8 @@ import { showErrorToast, showSuccessToast } from "./components/toaster";
 import { EditUserDialog } from "./components/edit-user-dialog/edit-user-dialog";
 import { DeleteUserDialog } from "./components/delete-user-dialog";
 
-const queryClient = new QueryClient();
-
 export default function Page() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Users />
-    </QueryClientProvider>
-  );
+  return <Users />;
 }
 
 function Users() {

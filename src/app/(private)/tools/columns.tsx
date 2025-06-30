@@ -27,6 +27,12 @@ const statusIconMap: Record<string, ReactNode> = {
 
 export const columns: ColumnDef<Tool>[] = [
   {
+    accessorKey: "id",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Id" />
+    ),
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nome" />

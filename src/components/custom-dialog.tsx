@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "./ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "./ui/dialog";
 import { DialogHeader } from "./ui/dialog";
 import { ReactNode } from "react";
 import { DialogProps } from "@radix-ui/react-dialog";
@@ -25,11 +19,11 @@ export function CustomDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className="flex justify-center w-xs">
+      <DialogContent className="flex flex-col justify-center items-center w-xs">
         <DialogHeader className="flex items-center justify-center">
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription asChild>{children}</DialogDescription>
         </DialogHeader>
+        <div className="mt-4">{children}</div>
       </DialogContent>
     </Dialog>
   );

@@ -1,11 +1,5 @@
 "use client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import LendsService from "./service";
 import { useForm } from "react-hook-form";
@@ -19,14 +13,8 @@ import { CloseLendDialog } from "./components/close-lend-dialog";
 import ToolsService from "../tools/service";
 import UsersService from "../users/service";
 
-const queryClient = new QueryClient();
-
 export default function Page() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Lends />
-    </QueryClientProvider>
-  );
+  return <Lends />;
 }
 
 function Lends() {
@@ -48,7 +36,7 @@ function Lends() {
   });
 
   const toolQuery = useQuery({
-    queryKey: ["tools"],
+    queryKey: ["tools_available"],
     queryFn: () => toolService.getAllAvailable(),
   });
 
@@ -58,6 +46,8 @@ function Lends() {
     onSuccess: () => {
       showSuccessToast();
       queryClient.invalidateQueries({ queryKey: ["lends"] });
+      queryClient.invalidateQueries({ queryKey: ["tools_available"] });
+      queryClient.invalidateQueries({ queryKey: ["tools"] });
       setOpen(false);
     },
   });
@@ -76,7 +66,6 @@ function Lends() {
   });
 
   const insertLendFormSubmit = (values: LendType) => {
-    console.log(values);
     insertLendMutation.mutate(values);
   };
 
