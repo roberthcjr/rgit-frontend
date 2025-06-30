@@ -47,7 +47,11 @@ export function EditToolDialog({
               <FormItem>
                 <FormLabel>Ferramenta</FormLabel>
                 <FormControl>
-                  <Input placeholder={"Insira um nome..."} {...field} />
+                  <Input
+                    placeholder={"Insira um nome..."}
+                    autoFocus={false}
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -59,11 +63,9 @@ export function EditToolDialog({
               <FormItem>
                 <FormLabel>Status</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="cursor-pointer">
-                      <SelectValue placeholder="Selecione um status" />
-                    </SelectTrigger>
-                  </FormControl>
+                  <SelectTrigger className="cursor-pointer">
+                    <SelectValue placeholder="Selecione um status" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="AVAILABLE" className="cursor-pointer">
                       Disponível
