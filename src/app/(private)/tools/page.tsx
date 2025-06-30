@@ -1,9 +1,5 @@
 "use client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useTools } from "./hooks/useTools";
 import { ToolsTable } from "./components/tools-table";
 import { ImportCsvDialog } from "./components/import-csv-dialog";

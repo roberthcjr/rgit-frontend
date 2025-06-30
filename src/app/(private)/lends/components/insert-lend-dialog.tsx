@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { PlusCircle } from "lucide-react";
 import { LendType } from "../types/lend-type";
