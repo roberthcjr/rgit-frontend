@@ -41,5 +41,5 @@ export function useTools({ setOpen }: UseTools) {
     mutation.mutate(values.csv);
   };
 
-  return { query, form, onSubmit };
+  return { queryClient, query, form, onSubmit };
 }

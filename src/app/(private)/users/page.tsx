@@ -18,14 +18,8 @@ import { showErrorToast, showSuccessToast } from "./components/toaster";
 import { EditUserDialog } from "./components/edit-user-dialog/edit-user-dialog";
 import { DeleteUserDialog } from "./components/delete-user-dialog";
 
-const queryClient = new QueryClient();
-
 export default function Page() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Users />
-    </QueryClientProvider>
-  );
+  return <Users />;
 }
 
 function Users() {

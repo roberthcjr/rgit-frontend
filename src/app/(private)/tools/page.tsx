@@ -19,19 +19,13 @@ import { InsertToolDialog } from "./components/insert-tool-dialog";
 import { EditToolDialog } from "./components/edit-tool-dialog";
 import { EditToolSchema } from "./schemas/edit-tool.schema";
 
-const queryClient = new QueryClient();
-
 export default function Page() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Tools />
-    </QueryClientProvider>
-  );
+  return <Tools />;
 }
 
 function Tools() {
   const [open, setOpen] = useState(false);
-  const { query, form, onSubmit } = useTools({ setOpen });
+  const { queryClient, query, form, onSubmit } = useTools({ setOpen });
   const toolService = useMemo(() => new ToolsService(), []);
 
   const [openInsert, setOpenInsert] = useState(false);
@@ -88,7 +82,7 @@ function Tools() {
   const editToolMutation = useMutation({
     mutationFn: (data: EditToolType) => toolService.updateTool(data),
     onSuccess: () => {
-      showSuccessToast("Ferramenta editado com sucesso");
+      showSuccessToast("Ferramenta editada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["tools"] });
       setEditOpen(false);
       setToolToEdit(null);
