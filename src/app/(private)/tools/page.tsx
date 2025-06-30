@@ -60,12 +60,6 @@ function Tools() {
     defaultValues: {
       name: "",
       status: "AVAILABLE",
-      brand: {
-        name: "",
-      },
-      category: {
-        name: "",
-      },
     },
   });
 
