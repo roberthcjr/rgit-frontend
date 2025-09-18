@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function LogoCloud() {
   return (
-    <section className=" py-16">
+    <section className="py-16 bg-white/10 backdrop-blur-sm">
       <div className="mx-auto max-w-5xl px-6">
         <h2 className="text-center text-lg font-medium">
           Onde já fizemos a diferença.
