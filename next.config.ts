@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
         hostname: "img.freepik.com",
         protocol: "https",
       },
+      {
+        hostname: "images.unsplash.com",
+        protocol: "https",
+      },
+      {
+        hostname: "fermag.ind.br",
+        protocol: "https",
+      },
     ],
   },
 };

@@ -11,20 +11,18 @@ export default function ContentSection() {
           </h2>
           <div className="space-y-6">
             <p>
-              {" "}
               A <strong>RGIT</strong> nasceu a partir de uma dor real: uma
               empresa que dependia de métodos manuais para controlar o
               empréstimo de suas ferramentas. Esse processo gerava falhas,
-              retrabalho e falta de visibilidade.{" "}
-            </p>{" "}
+              retrabalho e falta de visibilidade.
+            </p>
             <p>
-              {" "}
               Foi para resolver esse desafio que criamos a <strong>RGIT</strong>
               . Hoje, nossa plataforma vai muito além da gestão de ferramentas —
               ela oferece um ecossistema completo, capaz de se adaptar a
               qualquer negócio que trabalhe com empréstimos. Mais controle,
               organização e eficiência para empresas que querem simplificar sua
-              operação.{" "}
+              operação.
             </p>
           </div>
         </div>

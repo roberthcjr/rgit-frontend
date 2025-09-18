@@ -1,4 +1,5 @@
 import { Cpu, Lock, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
 
 export default function ContentSection() {
   return (
@@ -20,15 +21,14 @@ export default function ContentSection() {
             mais controle, organização e eficiência no dia a dia.
           </p>
         </div>
-        <img
+        <Image
           className="rounded-(--radius) grayscale"
           src="https://images.unsplash.com/photo-1616587226960-4a03badbe8bf?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="team image"
-          height=""
-          width=""
+          width={2940} // defina a largura original da imagem ou a que deseja renderizar
+          height={1960} // defina a altura proporcional da imagem
           loading="lazy"
         />
-
         <div className="relative mx-auto grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-4">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
