@@ -1,18 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import SolutionSection from "@/components/content-5";
+import AboutSection from "@/components/content-4";
+import FeaturesSection from "@/components/features-5";
+import HeroSection from "@/components/hero-section";
+import FooterSection from "@/components/footer";
 
 export default function LendingPage() {
-  const router = useRouter();
-  const sendToLoginPage = () => {
-    router.push("/login");
-  };
   return (
-    <div className="flex w-screen h-screen justify-center items-center">
-      <Button className="cursor-pointer" onClick={sendToLoginPage}>
-        Entrar
-      </Button>
-    </div>
+    <>
+      <HeroSection />
+      <FeaturesSection />
+      <SolutionSection />
+      <AboutSection />
+      <FooterSection />
+    </>
   );
 }
